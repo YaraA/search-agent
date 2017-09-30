@@ -25,6 +25,9 @@ public class PressurePads extends Cell {
 	public void setActivated(boolean isActivated) {
 		this.isActivated = isActivated;
 	}
+	public String toString(){
+		return "P";
+	}
 	
 
 

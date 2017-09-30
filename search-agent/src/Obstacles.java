@@ -9,5 +9,9 @@ public class Obstacles extends Cell {
 	public boolean canMoveThrough() {
 		return false;
 	}
+	public String toString(){
+		return "O";
+	}
+	
 
 }

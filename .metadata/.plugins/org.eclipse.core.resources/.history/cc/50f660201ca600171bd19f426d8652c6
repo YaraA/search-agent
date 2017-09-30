@@ -1,0 +1,30 @@
+import java.util.List;
+import java.util.Random;
+
+
+public class Main {
+
+	public Main() {
+		// TODO Auto-generated constructor stub
+	}
+	public Grid genGrid(int mnMax){
+		Random random = new Random();
+		int m = random.nextInt(mnMax + 1 - 1) + mnMax;
+		int n=  random.nextInt(mnMax + 1 - 1) + mnMax;
+		int rocksPressureMax= m*n-1;//-1 for teleportal
+		int rocksAndPressure= random.nextInt(rocksPressureMax + 1 - 1) + rocksPressureMax;
+		int obstaclesMax= rocksPressureMax-rocksAndPressure;
+		int obstacles= random.nextInt(obstaclesMax + 1 - 1) + obstaclesMax;
+		Grid intialGrid= new Grid(m, n, rocksAndPressure, obstacles);
+		System.out.println("m: "+ m + " n: " + n + " rp: " + rocksAndPressure + " o: " + obstacles);
+		return intialGrid;
+	}
+	public List search(Grid grid, String strategy, boolean visualize){
+		return null;
+	}
+	public static void main (String[]args){
+		
+		
+	}
+
+}

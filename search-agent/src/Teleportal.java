@@ -10,5 +10,9 @@ public class Teleportal extends Cell {
 	public boolean canMoveThrough(){
 			return true; 
 	}
+	public String toString(){
+		return "T";
+	}
+	
 
 }
