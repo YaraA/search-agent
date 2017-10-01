@@ -1,8 +1,8 @@
 
 public class Rocks extends Cell {
 
-	public Rocks(int positionRow, int positionCol) {
-		super(positionRow, positionCol);
+	public Rocks(Position pos) {
+		super(pos);
 	}
 	
 	public boolean canMoveThrough() {

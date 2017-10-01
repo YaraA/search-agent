@@ -7,19 +7,21 @@ public class Main {
 	public Main() {
 		// TODO Auto-generated constructor stub
 	}
-	public static  Grid genGrid(int mnMax){
+	public static  Grid genGrid(){
+		
+		int mnMax=15;
 		Random random = new Random();
-		int m = random.nextInt(mnMax + 1 - 1) + 1;
+		int m = random.nextInt(mnMax) + 1;
 		System.out.println("m: " + m);
-		int n=  random.nextInt(mnMax + 1 - 1) + 1;
+		int n=  random.nextInt(mnMax) + 1;
 		System.out.println("n: " +n);
-		int rocksPressureMax= (m*n-1);//-1 for teleportal
+		int rocksPressureMax= (m*n-2);//-2 for teleportal and blank for R2-D2
 		System.out.println("rpM: " +rocksPressureMax);
-		int rocksAndPressure= random.nextInt(rocksPressureMax/2 + 1 - 1) + 1;
+		int rocksAndPressure= random.nextInt(rocksPressureMax/2) + 1;
 		System.out.println("rp: " +rocksAndPressure);
 		int obstaclesMax= rocksPressureMax-rocksAndPressure*2;
 		System.out.println("oM: " +obstaclesMax);
-		int obstacles= random.nextInt(obstaclesMax + 1 - 1) + 1;
+		int obstacles= random.nextInt(obstaclesMax) + 1;
 		System.out.println("o: " +obstacles);
 		Grid intialGrid= new Grid(m, n, rocksAndPressure,rocksAndPressure, obstacles);
 		System.out.println("b: "+ (obstaclesMax-obstacles));
@@ -30,9 +32,8 @@ public class Main {
 		return null;
 	}
 	public static void main (String[]args){
-		Random random = new Random();
-		//System.out.println(random.nextInt(5 + 1 - 1) + 1);
-		genGrid(12);
+		
+		System.out.println(genGrid().toString());
 		
 	}
 

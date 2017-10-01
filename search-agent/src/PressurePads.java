@@ -4,10 +4,9 @@ public class PressurePads extends Cell {
 	boolean isActivated;
 	//Cell rockOnTop;
 	
-	public PressurePads(int positionRow, int positionCol) {	
-		super(positionRow, positionCol);
-		this.isActivated= false;	
-		
+	public PressurePads(Position pos) {
+		super(pos);
+		this.isActivated= false;			
 	}
 
 	public boolean canMoveThrough(){

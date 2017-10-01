@@ -1,8 +1,8 @@
 
 public class Blank extends Cell {
 
-	public Blank(int positionRow, int positionCol) {
-		super(positionRow, positionCol);
+	public Blank(Position pos) {
+		super(pos);
 	}
 	
 	public boolean canMoveThrough(){

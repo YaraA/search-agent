@@ -2,8 +2,8 @@
 public class Teleportal extends Cell {
 	boolean isActivated;
 
-	public Teleportal(int positionRow, int positionCol) {
-		super(positionRow, positionCol);
+	public Teleportal(Position pos) {
+		super(pos);
 		isActivated= false; 
 	}
 	
