@@ -1,0 +1,8 @@
+
+public abstract class SearchProb {
+
+	public SearchProb() {
+		// TODO Auto-generated constructor stub
+	}
+
+}
