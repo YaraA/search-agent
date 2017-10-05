@@ -99,7 +99,24 @@ public class Grid {
 				teleportalPosition = new Position(i, j);
 		}
 	}
-	public 
+	
+	/* isActivated()
+	 * returns true if all rocks are placed on pressure pads
+	 * and hence the teleportal is activated.
+	 */
+	public boolean isActivated(){
+		/*
+		 * If all cells in the grid are NOT of type ROCK, then all rocks are on
+		 * pressure pads (cells of type ROCKONPAD).
+		 */
+		for (int i = 0; i < m; i++) {
+			for (int j = 0; j < n; j++) {
+				if(grid[i][j].getType() == CellType.ROCK)
+					return false;
+			}
+		}
+		return true;
+	}
 	public boolean canMove(Cell currCell, Operator o){ 
 		//checks if cell lies on the edges of the grid
 		return false;
