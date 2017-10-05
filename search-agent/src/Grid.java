@@ -10,7 +10,7 @@ public class Grid {
 	private int obstaclesCount;
 	Position agentLocation;
 	Position teleportalPosition;
-	
+
 	public Cell[][] getGrid() {
 		return grid;
 	}
@@ -35,7 +35,6 @@ public class Grid {
 		return obstaclesCount;
 	}
 
-	
 	public Grid(int m, int n, int pads, int rocks, int obstacles){
 		/*
 		 * Initialize instance variables.
@@ -46,7 +45,7 @@ public class Grid {
 		this.rocksCount = rocks;
 		this.obstaclesCount = obstacles;
 		grid= new Cell[m][n];
-		
+
 		/*
 		 * Initialize the grid with BLANK cells.
 		 */
@@ -55,7 +54,7 @@ public class Grid {
 				grid[i][j]= new Cell(CellType.BLANK);
 			}
 		}
-		
+
 		/*
 		 * Assign agent location to a random blank cell.
 		 */
@@ -63,7 +62,7 @@ public class Grid {
 		int x = random.nextInt(m);
 		int y = random.nextInt(n);
 		agentLocation = new Position(x, y);
-		
+
 		/*
 		 * Create and assign one teleportal cell.
 		 */
@@ -100,31 +99,25 @@ public class Grid {
 				teleportalPosition = new Position(i, j);
 		}
 	}
-	
+	public 
 	public boolean canMove(Cell currCell, Operator o){ 
 		//checks if cell lies on the edges of the grid
 		return false;
-		
-		
 	}
-    public String toString(){
-    	String result="";
-    	String seperator= "";
-    	for(int j=0; j<n*6+1;j++)
-    		seperator+="-";
-    	result+= "  " + seperator + "\n";
-    	for(int i=0; i<m; i++){
-    		for(int j=0; j<n; j++){
-    			result+= "  |  " + grid[i][j].toString();
-    			
-    		}
-    		result+= "  |  " + "\n";
-    		result+= "  " +seperator + "\n";
-    		
-    	}
-      
-           
-    	return result;
-    }
+	public String toString(){
+		String result="";
+		String seperator= "";
+		for(int j=0; j<n*6+1;j++)
+			seperator+="-";
+		result+= "  " + seperator + "\n";
+		for(int i=0; i<m; i++){
+			for(int j=0; j<n; j++){
+				result+= "  |  " + grid[i][j].toString();
 
+			}
+			result+= "  |  " + "\n";
+			result+= "  " +seperator + "\n";
+		}
+		return result;
+	}
 }
