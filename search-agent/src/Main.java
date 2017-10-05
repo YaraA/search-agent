@@ -1,13 +1,12 @@
 import java.util.Random;
 
 public class Main {
-	final static int gridLimit = 20; //upper bound for m & n values of the grid
+	final static int gridLimit = 30; //upper bound for m & n values of the grid
+
 	public static void main (String[]args){
-		
-		System.out.println(genGrid().toString());
-		
+		System.out.println(genGrid());
 	}
-	
+
 	/* genGrid() generates random numbers of grid dimensions and objects,
 	 * then constructs the grid.
 	 */
@@ -15,10 +14,10 @@ public class Main {
 		/*
 		 To generate random number between min(inclusive) and max(inclusive), use: 
 		 random.nextInt((max - min) + 1) + min;
-		*/
-		
+		 */
+
 		Random random = new Random();
-		
+
 		/* 
 		 * Generate grid dimensions (m x n)
 		 * max = gridLimit, min = 3
@@ -37,14 +36,18 @@ public class Main {
 		 * Generate random number for both rocks and pads 
 		 * with a min of 0 each.
 		 */
-		int rocks,pads;
-		rocks = pads = random.nextInt(rocksLimit);
-		
+		int rocks = 0, pads = 0;
+		if(rocksLimit > 0)
+			rocks = pads = random.nextInt(rocksLimit);
+
 		/* 1. Adjust the limit to the number of remaining unoccupied cells.
 		 * 2. Generate a random number of obstacles with a min of 0.
 		 */
+		
 		int obstaclesLimit = gridLimit - rocks - pads;
-		int obstacles= random.nextInt(obstaclesLimit);
+		int obstacles = 0;
+		if(obstaclesLimit > 0)
+			obstacles= random.nextInt(obstaclesLimit);
 
 		Grid grid= new Grid(m, n, rocks, pads, obstacles);
 		return grid;

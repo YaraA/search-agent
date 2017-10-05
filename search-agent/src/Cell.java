@@ -15,4 +15,10 @@ public class Cell {
 	public void setType(CellType type) {
 		this.type = type;
 	}
+	public String toString(){
+		/*
+		 * Returns the first letter of the enum name.
+		 */
+		return type.toString().charAt(0) + "";
+	}
 }
