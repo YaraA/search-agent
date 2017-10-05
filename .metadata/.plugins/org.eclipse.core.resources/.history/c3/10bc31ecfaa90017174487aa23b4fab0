@@ -12,9 +12,6 @@ public class State {
 	public Grid getCurrGrid() {
 		return currGrid;
 	}
-	public void setCurrGrid(Grid currGrid) {
-		this.currGrid = currGrid;
-	}
 
 	
 
