@@ -8,8 +8,8 @@ public class Main {
 		
 	}
 	
-	/* genGrid() generates random numbers of grid objects, dimensions,
-	 * and position of the robot then constructs the grid.
+	/* genGrid() generates random numbers of grid dimensions and objects,
+	 * then constructs the grid.
 	 */
 	public static  Grid genGrid(){
 		/*
@@ -26,8 +26,7 @@ public class Main {
 		int m = random.nextInt(gridLimit-3) + 3;
 		int n=  random.nextInt(gridLimit-3) + 3;
 
-		/*
-		 * 1. Reserve one place for the initial location of the agent and 
+		/* 1. Reserve one place for the initial location of the agent and 
 		 * one for the teleportal.
 		 * 2. Adjust limit for the number of rocks/pads to a max of half
 		 * of the remaining unoccupied cells each.
