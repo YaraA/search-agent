@@ -18,9 +18,7 @@ public abstract class SearchProb {
 		EnumSet<Operator> allowedOperators= this.allowedOperators(node);
 		for (Operator o : allowedOperators) {  
 			State newState= this.transition(node.state, o);
-			int cost = this.pathCost(node);
-			int childDepth= node.depth +1;
-			Node childNode= new Node(newState, node, o, childDepth, cost);
+			
 		}
 		
 	}
