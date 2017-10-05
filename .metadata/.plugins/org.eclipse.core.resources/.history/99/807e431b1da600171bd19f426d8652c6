@@ -1,0 +1,38 @@
+import java.util.List;
+import java.util.Random;
+
+
+public class Main {
+
+	public Main() {
+		// TODO Auto-generated constructor stub
+	}
+	public static Grid genGrid(int mnMax){
+		Random random = new Random();
+		int m = random.nextInt(mnMax + 1 - 1) + 1;
+		System.out.println(m);
+		int n=  random.nextInt(mnMax + 1 - 1) + 1;
+		System.out.println(n);
+		int rocksPressureMax= (m*n-1)/2;//-1 for teleportal
+		System.out.println(rocksPressureMax);
+		int rocksAndPressure= random.nextInt(rocksPressureMax + 1 - 1) + 1;
+		System.out.println(rocksAndPressure);
+		int obstaclesMax= rocksPressureMax-rocksAndPressure*2;
+		System.out.println(obstaclesMax);
+		int obstacles= random.nextInt(obstaclesMax + 1 - 1) + 1;
+		System.out.println(obstacles);
+		Grid intialGrid= new Grid(m, n, rocksAndPressure, obstacles);
+		System.out.println("m: "+ m + " n: " + n + " rp: " + rocksAndPressure + " o: " + obstacles);
+		return intialGrid;
+	}
+	public List search(Grid grid, String strategy, boolean visualize){
+		return null;
+	}
+	public static void main (String[]args){
+		Random random = new Random();
+		System.out.println(random.nextInt(5 + 1 - 1) + 1);
+		genGrid(12);
+		
+	}
+
+}

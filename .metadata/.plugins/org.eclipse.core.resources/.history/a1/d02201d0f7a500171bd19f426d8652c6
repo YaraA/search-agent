@@ -1,0 +1,14 @@
+
+public class PressurePads {
+	boolean isActivated;
+	//Cell rockOnTop;
+
+	public boolean canMoveThrough(){
+		if(isActivated)
+			return false;
+		else
+			return true; 
+	}
+
+
+}
