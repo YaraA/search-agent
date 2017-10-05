@@ -1,5 +1,5 @@
 
-public abstract class Cell {
+public class Cell {
 	
 	private CellType type;
 	
@@ -16,7 +16,9 @@ public abstract class Cell {
 		this.type = type;
 	}
 
-	public abstract boolean canMoveThrough();
+	public boolean canMoveThrough(){
+		return false;
+	}
 	//overwritten in each of the Cell's subclasses
 	//checks whether R2-D2 can pass through the cell or not
 
