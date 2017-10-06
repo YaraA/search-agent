@@ -8,8 +8,8 @@ public class Grid {
 	private int padsCount;
 	private int rocksCount;
 	private int obstaclesCount;
-	Position agentLocation;
-	Position teleportalPosition;
+	private Position agentLocation;
+	private Position teleportalPosition;
 
 	public Cell[][] getGrid() {
 		return grid;
@@ -34,7 +34,18 @@ public class Grid {
 	public int getObstaclesCount() {
 		return obstaclesCount;
 	}
+	public Position getAgentLocation() {
+		return agentLocation;
+	}
 
+	public void setAgentLocation(Position agentLocation) {
+		this.agentLocation = agentLocation;
+	}
+
+	public Position getTeleportalPosition() {
+		return teleportalPosition;
+	}
+	
 	public Grid(int m, int n, int pads, int rocks, int obstacles){
 		/*
 		 * Initialize instance variables.
