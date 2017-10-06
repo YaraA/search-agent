@@ -1,0 +1,8 @@
+
+public class SearchRes {
+
+	public SearchRes() {
+		// TODO Auto-generated constructor stub
+	}
+
+}
