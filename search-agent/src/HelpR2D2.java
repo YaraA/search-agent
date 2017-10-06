@@ -3,8 +3,8 @@ import java.util.EnumSet;
 
 public class HelpR2D2 extends SearchProb {
 
-	public HelpR2D2(EnumSet<Operator> operators, HelpR2D2State initialState) {
-		super(operators, initialState);
+	public HelpR2D2(HelpR2D2State initialState) {
+		super(initialState);
 	}
 
 	@Override

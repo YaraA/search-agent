@@ -3,11 +3,9 @@ import java.util.EnumSet;
 
 
 public abstract class SearchProb {
-	EnumSet<Operator> operators;
 	State initialState;
 	
-	public SearchProb(EnumSet<Operator> operators, State initialState) {
-		this.operators= operators;
+	public SearchProb(State initialState) {
 		this.initialState= initialState;
 	}
 	
@@ -33,13 +31,6 @@ public abstract class SearchProb {
 		return childrenNodes;
 	}
 
-	public EnumSet<Operator> getOperators() {
-		return operators;
-	}
-
-	public void setOperators(EnumSet<Operator> operators) {
-		this.operators = operators;
-	}
 
 	public State getInitialState() {
 		return initialState;
