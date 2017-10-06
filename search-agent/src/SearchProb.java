@@ -3,9 +3,11 @@ import java.util.EnumSet;
 
 
 public abstract class SearchProb {
+	Object operators;
 	State initialState;
 	
-	public SearchProb(State initialState) {
+	public SearchProb(Object operators, State initialState) {
+		this.operators= operators;
 		this.initialState= initialState;
 	}
 	
@@ -31,6 +33,13 @@ public abstract class SearchProb {
 		return childrenNodes;
 	}
 
+	public Object getOperators() {
+		return operators;
+	}
+
+	public void setOperators(Object operators) {
+		this.operators = operators;
+	}
 
 	public State getInitialState() {
 		return initialState;
