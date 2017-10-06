@@ -133,6 +133,9 @@ public class Grid {
 		return false;
 	}
 	public String toString(){
+		/*
+		 * Prints the grid in a nice visual format.
+		 */
 		String result = "";
 		String seperator = "";
 		for(int j = 0; j < n*6+1; j++)
