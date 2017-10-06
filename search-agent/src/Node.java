@@ -1,10 +1,10 @@
 
 public class Node {
-	State state;
-	Node parent;
-	Operator operator;
-	int depth;
-	int pathCost;
+	private State state;
+	private Node parent;
+	private Operator operator;
+	private int depth;
+	private int pathCost;
 
 	public Node(State s, Node p, Operator o, int d, int c) {
 		this.state = s;
