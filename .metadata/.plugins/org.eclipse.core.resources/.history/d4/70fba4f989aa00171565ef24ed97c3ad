@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.EnumSet;
 
 
@@ -15,21 +14,15 @@ public abstract class SearchProb {
 	public abstract boolean goalTest(State state);
 	public abstract int pathCost(Node node);
 	public abstract EnumSet<Operator> allowedOperators(Node node);
-	public ArrayList<Node> expand(Node node){
-		ArrayList<Node> childrenNodes= new ArrayList<Node>();
+	public void expand(Node node){
 		EnumSet<Operator> allowedOperators= this.allowedOperators(node);
 		for (Operator o : allowedOperators) {  
 			State newState= this.transition(node.state, o);
-			if(newState != null)
-			{
-				int cost = this.pathCost(node);
-				int childDepth= node.depth +1;
-				Node childNode= new Node(newState, node, o, childDepth, cost);
-				childrenNodes.add(childNode);
-			}
-			
+			int cost = this.pathCost(node);
+			int childDepth= node.depth +1;
+			Node childNode= new Node(newState, node, o, childDepth, cost);
 		}
-		return childrenNodes;
+		
 	}
 
 	public EnumSet<Operator> getOperators() {
