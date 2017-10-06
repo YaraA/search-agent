@@ -16,7 +16,6 @@ public abstract class SearchProb {
 	public abstract int pathCost(Node node);
 	public abstract EnumSet<Operator> allowedOperators(Node node);
 	public ArrayList<Node> expand(Node node){
-		//returns an array of all the possible children of Node node
 		ArrayList<Node> childrenNodes= new ArrayList<Node>();
 		EnumSet<Operator> allowedOperators= this.allowedOperators(node);
 		for (Operator o : allowedOperators) {  
