@@ -22,6 +22,4 @@ public class State {
 	public int getCurrPosCol() {
 		return currPosCol;
 	}
-
-
 }
