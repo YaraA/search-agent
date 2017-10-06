@@ -33,6 +33,9 @@ public abstract class SearchProb {
 		return childrenNodes;
 	}
 
+
+
+	
 	public Object getOperators() {
 		return operators;
 	}

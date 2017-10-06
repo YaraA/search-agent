@@ -1,6 +1,6 @@
 
 public class HelpR2D2State extends State{
-	Grid currGrid;
+	private Grid currGrid;
 	
 
 	public HelpR2D2State(Grid currGrid) {
