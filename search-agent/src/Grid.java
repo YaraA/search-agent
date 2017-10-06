@@ -8,8 +8,8 @@ public class Grid {
 	private int padsCount;
 	private int rocksCount;
 	private int obstaclesCount;
-	Position agentLocation;
-	Position teleportalPosition;
+	private Position agentLocation;
+	private Position teleportalPosition;
 
 	public Cell[][] getGrid() {
 		return grid;
@@ -34,24 +34,35 @@ public class Grid {
 	public int getObstaclesCount() {
 		return obstaclesCount;
 	}
+	public Position getAgentLocation() {
+		return agentLocation;
+	}
+
+	public void setAgentLocation(Position agentLocation) {
+		this.agentLocation = agentLocation;
+	}
+
+	public Position getTeleportalPosition() {
+		return teleportalPosition;
+	}
 
 	public Grid(int m, int n, int pads, int rocks, int obstacles){
 		/*
 		 * Initialize instance variables.
 		 */
-		this.m =m;
-		this.n= n;
+		this.m = m;
+		this.n = n;
 		this.padsCount = pads;
 		this.rocksCount = rocks;
 		this.obstaclesCount = obstacles;
-		grid= new Cell[m][n];
+		this.grid = new Cell[m][n];
 
 		/*
 		 * Initialize the grid with BLANK cells.
 		 */
 		for(int i=0; i<m; i++){
 			for(int j=0; j<n; j++){
-				grid[i][j]= new Cell(CellType.BLANK);
+				grid[i][j] = new Cell(CellType.BLANK);
 			}
 		}
 
@@ -99,7 +110,7 @@ public class Grid {
 				teleportalPosition = new Position(i, j);
 		}
 	}
-	
+
 	/* isActivated()
 	 * returns true if all rocks are placed on pressure pads
 	 * and hence the teleportal is activated.
@@ -122,18 +133,20 @@ public class Grid {
 		return false;
 	}
 	public String toString(){
-		String result="";
-		String seperator= "";
-		for(int j=0; j<n*6+1;j++)
-			seperator+="-";
-		result+= "  " + seperator + "\n";
-		for(int i=0; i<m; i++){
-			for(int j=0; j<n; j++){
-				result+= "  |  " + grid[i][j].toString();
-
+		/*
+		 * Prints the grid in a nice visual format.
+		 */
+		String result = "";
+		String seperator = "";
+		for(int j = 0; j < n*6+1; j++)
+			seperator += "-";
+		result += "  " + seperator + "\n";
+		for(int i = 0; i < m; i++){
+			for(int j = 0; j < n; j++){
+				result += "  |  " + grid[i][j].toString();
 			}
-			result+= "  |  " + "\n";
-			result+= "  " +seperator + "\n";
+			result += "  |  " + "\n";
+			result += "  " +seperator + "\n";
 		}
 		return result;
 	}
