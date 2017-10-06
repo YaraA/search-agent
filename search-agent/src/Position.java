@@ -1,7 +1,7 @@
 
 public class Position {
-	int x;
-	int y;
+	private int x;
+	private int y;
 
 	public Position(int x, int y) {
 		this.x= x;
@@ -24,5 +24,8 @@ public class Position {
 		this.y = y;
 	}
 	
+	public boolean equals(int x, int y){
+		return (this.x==x) && (this.y==y);
+	}
 
 }

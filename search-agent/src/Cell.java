@@ -1,27 +1,24 @@
 
-public abstract class Cell {
+public class Cell {
 	
-	Position pos;
+	private CellType type;
 	
 
-	public Cell(Position pos) {
-		this.pos= pos;
+	public Cell(CellType type) {
+		this.setType(type) ;
 	}
 
-	public abstract boolean canMoveThrough();
-	//overwritten in each of the Cell's subclasses
-	//checks whether R2-D2 can pass through the cell or not
-
-	public Position getPos() {
-		return pos;
+	public CellType getType() {
+		return type;
 	}
 
-	public void setPos(Position pos) {
-		this.pos = pos;
+	public void setType(CellType type) {
+		this.type = type;
 	}
-
-	
-	
-	
-
+	public String toString(){
+		/*
+		 * Returns the first letter of the enum name.
+		 */
+		return type.toString().charAt(0) + "";
+	}
 }

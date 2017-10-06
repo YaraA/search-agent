@@ -1,40 +1,59 @@
-import java.util.List;
 import java.util.Random;
 
-
 public class Main {
+	final static int gridLimit = 30; //upper bound for m & n values of the grid
 
-	public Main() {
-		// TODO Auto-generated constructor stub
-	}
-	public static  Grid genGrid(){
-		
-		int mnMax=15;
-		Random random = new Random();
-		int m = random.nextInt(mnMax) + 1;
-		System.out.println("m: " + m);
-		int n=  random.nextInt(mnMax) + 1;
-		System.out.println("n: " +n);
-		int rocksPressureMax= (m*n-2);//-2 for teleportal and blank for R2-D2
-		System.out.println("rpM: " +rocksPressureMax);
-		int rocksAndPressure= random.nextInt(rocksPressureMax/2) + 1;
-		System.out.println("rp: " +rocksAndPressure);
-		int obstaclesMax= rocksPressureMax-rocksAndPressure*2;
-		System.out.println("oM: " +obstaclesMax);
-		int obstacles= random.nextInt(obstaclesMax) + 1;
-		System.out.println("o: " +obstacles);
-		Grid intialGrid= new Grid(m, n, rocksAndPressure,rocksAndPressure, obstacles);
-		System.out.println("b: "+ (obstaclesMax-obstacles));
-		System.out.println("m: "+ m + " n: " + n + " rp: " + rocksAndPressure + " o: " + obstacles);
-		return intialGrid;
-	}
-	public List search(Grid grid, String strategy, boolean visualize){
-		return null;
-	}
 	public static void main (String[]args){
+		System.out.println(genGrid());
+	}
+
+	/* genGrid() generates random numbers of grid dimensions and objects,
+	 * then constructs the grid.
+	 */
+	public static  Grid genGrid(){
+		/*
+		 To generate random number between min(inclusive) and max(inclusive), use: 
+		 random.nextInt((max - min) + 1) + min;
+		 */
+
+		Random random = new Random();
+
+		/* 
+		 * Generate grid dimensions (m x n)
+		 * max = gridLimit, min = 3
+		 */
+		int m = random.nextInt(gridLimit-3) + 3;
+		int n=  random.nextInt(gridLimit-3) + 3;
+
+		/* 1. Reserve one place for the initial location of the agent and 
+		 * one for the teleportal.
+		 * 2. Adjust limit for the number of rocks/pads to a max of half
+		 * of the remaining unoccupied cells each.
+		 */
+		int rocksLimit= ((m*n)/2 - 2);
+
+		/*
+		 * Generate random number for both rocks and pads 
+		 * with a min of 0 each.
+		 */
+		int rocks = 0, pads = 0;
+		if(rocksLimit > 0)
+			rocks = pads = random.nextInt(rocksLimit);
+
+		/* 1. Adjust the limit to the number of remaining unoccupied cells.
+		 * 2. Generate a random number of obstacles with a min of 0.
+		 */
 		
-		System.out.println(genGrid().toString());
-		
+		int obstaclesLimit = gridLimit - rocks - pads;
+		int obstacles = 0;
+		if(obstaclesLimit > 0)
+			obstacles= random.nextInt(obstaclesLimit);
+
+		Grid grid= new Grid(m, n, rocks, pads, obstacles);
+		return grid;
+	}
+	public Object Search(Grid grid, String strategy, boolean visualize){
+		return null;
 	}
 
 }
