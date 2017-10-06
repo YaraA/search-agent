@@ -20,11 +20,11 @@ public abstract class SearchProb {
 		ArrayList<Node> childrenNodes= new ArrayList<Node>();
 		EnumSet<Operator> allowedOperators= this.allowedOperators(node);
 		for (Operator o : allowedOperators) {  
-			State newState= this.transition(node.state, o);
+			State newState= this.transition(node.getState(), o);
 			if(newState != null)
 			{
 				int cost = this.pathCost(node);
-				int childDepth= node.depth +1;
+				int childDepth= node.getDepth() +1;
 				Node childNode= new Node(newState, node, o, childDepth, cost);
 				childrenNodes.add(childNode);
 			}
