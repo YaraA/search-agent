@@ -3,24 +3,10 @@ import java.util.EnumSet;
 
 public class HelpR2D2 extends SearchProb {
 	
-	private static EnumSet<Operator> operators; 
-	public HelpR2D2(HelpR2D2State initialState) {
+	public HelpR2D2(EnumSet operators, HelpR2D2State initialState) {
 		super(operators, initialState);
+		
 	}
-	
-	
-
-	public EnumSet<Operator> getOperators() {
-		return operators;
-	}
-
-
-
-	public static void setOperators(EnumSet<Operator> operators) {
-		HelpR2D2.operators = operators;
-	}
-
-
 
 	@Override
 	public State transition(State state, Operator operator) {
@@ -30,7 +16,12 @@ public class HelpR2D2 extends SearchProb {
 
 	@Override
 	public boolean goalTest(State state) {
-		// TODO Auto-generated method stub
+		/*
+		 * Check that the teleportal is activated and the agent is on its cell.
+		 */
+		Grid g = ((HelpR2D2State) state).getGrid();
+		if(g.isActivated() && g.getAgentLocation().equals(g.getTeleportalPosition()))
+			return true;
 		return false;
 	}
 
