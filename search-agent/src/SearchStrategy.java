@@ -1,8 +1,9 @@
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 
 public abstract class SearchStrategy {
-	public static void QING(Strategy s, Iterable<Node> queue ,ArrayList<Node> children){
+	public static void QING(Strategy s, LinkedList<Node> queue ,ArrayList<Node> children){
 		switch(s){
 		case BF: BFS(queue, children); break;
 		case DF: DFS(queue, children); break;
@@ -14,28 +15,28 @@ public abstract class SearchStrategy {
 		case AS2: AS2(queue, children); break;
 		}	
 	}
-	public static void BFS(Iterable<Node> queue ,ArrayList<Node> children){
+	public static void BFS(LinkedList<Node> queue ,ArrayList<Node> children){
 
 	}
-	public static void DFS(Iterable<Node> queue ,ArrayList<Node> children){
+	public static void DFS(LinkedList<Node> queue ,ArrayList<Node> children){
 
 	}
-	public static void UC(Iterable<Node> queue ,ArrayList<Node> children){
+	public static void UC(LinkedList<Node> queue ,ArrayList<Node> children){
 
 	}
-	public static void ID(Iterable<Node> queue ,ArrayList<Node> children){
+	public static void ID(LinkedList<Node> queue ,ArrayList<Node> children){
 
 	}
-	public static void GR1(Iterable<Node> queue ,ArrayList<Node> children){
+	public static void GR1(LinkedList<Node> queue ,ArrayList<Node> children){
 
 	}
-	public static void GR2(Iterable<Node> queue ,ArrayList<Node> children){
+	public static void GR2(LinkedList<Node> queue ,ArrayList<Node> children){
 
 	}
-	public static void AS1(Iterable<Node> queue ,ArrayList<Node> children){
+	public static void AS1(LinkedList<Node> queue ,ArrayList<Node> children){
 
 	}
-	public static void AS2(Iterable<Node> queue ,ArrayList<Node> children){
+	public static void AS2(LinkedList<Node> queue ,ArrayList<Node> children){
 
 	}
 }

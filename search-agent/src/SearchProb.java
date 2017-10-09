@@ -33,7 +33,10 @@ public abstract class SearchProb {
 		return childrenNodes;
 	}
 
-
+	public Node generalSearch(Strategy st){
+		
+		return null;
+	}
 
 	
 	public Object getOperators() {
