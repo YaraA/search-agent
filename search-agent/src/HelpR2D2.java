@@ -20,7 +20,8 @@ public class HelpR2D2 extends SearchProb {
 		 * Check that the teleportal is activated and the agent is on its cell.
 		 */
 		Grid g = ((HelpR2D2State) state).getGrid();
-		if(g.isActivated() && g.getAgentLocation().equals(g.getTeleportalPosition()))
+		if(g.isActivated() && 
+				g.getAgentLocation().equals(g.getTeleportalPosition()))
 			return true;
 		return false;
 	}
