@@ -102,8 +102,13 @@ public class HelpR2D2 extends SearchProb {
 
 	@Override
 	public int pathCost(Node node) {
-		// TODO Auto-generated method stub
-		return 0;
+		/*
+		 * Check if the node is the root.
+		 */
+		if(node.getParent() == null)
+			return 0;
+		
+		return 1 + pathCost(node.getParent());
 	}
 
 	@Override
