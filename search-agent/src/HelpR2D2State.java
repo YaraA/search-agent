@@ -16,4 +16,7 @@ public class HelpR2D2State extends State{
 	public void setGrid(Grid grid) {
 		this.grid = grid;
 	}
+	public HelpR2D2State clone(){
+		return new HelpR2D2State(grid.clone());
+	}
 }

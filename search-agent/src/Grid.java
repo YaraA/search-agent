@@ -14,7 +14,12 @@ public class Grid {
 	public Cell[][] getGrid() {
 		return grid;
 	}
-
+	public Cell getCell(Position p){
+		return grid[p.getX()][p.getY()];
+	}
+	public CellType getCellType(Position p){
+		return getCell(p).getType();
+	}
 	public int getM() {
 		return m;
 	}
@@ -128,9 +133,54 @@ public class Grid {
 		}
 		return true;
 	}
-	public boolean canMove(Cell currCell, Operator o){ 
-		//checks if cell lies on the edges of the grid
+	public void moveRock(Position rockPos, Cell adjCell){
+		/*
+		 * 1. Update agent location after moving into the rock cell.
+		 */
+		this.agentLocation.set(rockPos);
+		
+	}
+	public boolean liesInGrid(Position p){
+		/*
+		 * Check that the position (of a given cell) is in the valid range of the grid.
+		 */
+		if(p.getX()>=0 && p.getX() < this.m)
+			if(p.getY()>=0 && p.getY() < this.n)
+				return true;
 		return false;
+	}
+	public static Position nextCell(Position curr, Operator op){
+		int x = curr.getX(); int y = curr.getY();
+		
+		switch(op){
+		case UP: y++; break;
+		case DOWN: y--; break;
+		case RIGHT: x++; break;
+		case LEFT: x--; break;
+		}
+		
+		return new Position(x,y);
+	}
+	public Grid clone(){
+		/*
+		 * Deep cloning of the cells in the grid array.
+		 */
+		/*
+		 * 1. Create a new grid with the same counts of items.
+		 */
+		Grid newGrid = new Grid(this.m, this.n, this.padsCount, 
+				this.rocksCount, this.obstaclesCount);
+		/*
+		 * 2. Clone the cells.
+		 */
+		Cell [][] gridArray = new Cell[m][n];
+		for (int i = 0; i < m; i++) {
+			for (int j = 0; j < n; j++) {
+				gridArray[i][j] = this.grid[i][j].clone();
+			}
+		}
+		newGrid.grid = gridArray;
+		return newGrid;
 	}
 	public String toString(){
 		/*
