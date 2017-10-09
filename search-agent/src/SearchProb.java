@@ -11,11 +11,11 @@ public abstract class SearchProb {
 		this.initialState= initialState;
 	}
 	
-	public abstract State transition(State state, Operator operator);
+	public abstract State transition(State state, Operator operator) throws Exception;
 	public abstract boolean goalTest(State state);
 	public abstract int pathCost(Node node);
 	public abstract EnumSet<Operator> allowedOperators(Node node);
-	public ArrayList<Node> expand(Node node){
+	public ArrayList<Node> expand(Node node) throws Exception{
 		//returns an array of all the possible children of Node node
 		ArrayList<Node> childrenNodes= new ArrayList<Node>();
 		EnumSet<Operator> allowedOperators= this.allowedOperators(node);

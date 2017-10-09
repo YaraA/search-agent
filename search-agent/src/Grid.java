@@ -133,11 +133,35 @@ public class Grid {
 		}
 		return true;
 	}
-	public void moveRock(Position rockPos, Cell adjCell){
+	public void moveRock(Position rockCell, Position adjCell) throws Exception{
 		/*
 		 * 1. Update agent location after moving into the rock cell.
 		 */
-		this.agentLocation.set(rockPos);
+		this.agentLocation.set(rockCell);
+		/*
+		 * 2. Update rockCell new type
+		 */
+		CellType rockCellType = getCellType(rockCell);
+		CellType newRockCellType;
+		switch(rockCellType){
+			case ROCK: newRockCellType = CellType.BLANK; break;
+			case ROCKONPAD: newRockCellType = CellType.PAD; break;
+			case ROCKONTELEPORTAL: newRockCellType = CellType.TELEPORTAL; break;
+			default: throw new Exception("Tried to move rock from an invalid cell.");
+		}
+		getCell(rockCell).setType(newRockCellType);
+		/*
+		 * 3. Update adjCell new type
+		 */
+		CellType adjCellType= getCellType(adjCell);
+		CellType newAdjCellType;
+		switch(adjCellType){
+			case BLANK: newAdjCellType = CellType.ROCK; break;
+			case PAD: newAdjCellType = CellType.ROCKONPAD; break;
+			case TELEPORTAL: newAdjCellType = CellType.ROCKONTELEPORTAL; break;
+			default: throw new Exception("Tried to move rock to an invalid cell.");
+		}
+		getCell(adjCell).setType(newAdjCellType);
 		
 	}
 	public boolean liesInGrid(Position p){

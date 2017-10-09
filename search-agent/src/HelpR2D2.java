@@ -3,12 +3,12 @@ import java.util.EnumSet;
 
 public class HelpR2D2 extends SearchProb {
 
-	public HelpR2D2(EnumSet operators, HelpR2D2State initialState) {
+	public HelpR2D2(EnumSet<Operator> operators, HelpR2D2State initialState) {
 		super(operators, initialState);
 	}
 
 	@Override
-	public State transition(State state, Operator op) {
+	public State transition(State state, Operator op) throws Exception {
 		/*
 		 * Given the current state and a given operator, computes the next State
 		 * in case the operator is allowed, returns null otherwise.
@@ -21,21 +21,27 @@ public class HelpR2D2 extends SearchProb {
 		Grid newGrid = s.getGrid();
 		Position nextCell = Grid.nextCell(agent, op);
 		/*
-		 * Check for UNALLOWED cases.
-		 */
-		/*
-		 * 1. Invalid cell
+		 * 1. Invalid cell position
 		 */
 		if(!g.liesInGrid(nextCell))
 			return null;
-
+		/*
+		 * 2. Valid cell position cases
+		 */
 		CellType nextType = newGrid.getCellType(nextCell);
 		switch(nextType){
+		/*
+		 * Next cell does not contain a rock.
+		 */
 		case BLANK:
 		case TELEPORTAL:
 		case PAD: smoothTransition(newState, nextCell); break;
 		case OBSTACLE: return null;
+		/*
+		 * Next cell contains a rock.
+		 */
 		case ROCK:
+		case ROCKONTELEPORTAL:
 		case ROCKONPAD: roughTransition(newState, nextCell, op); break;
 		}
 		return newState;
@@ -47,9 +53,9 @@ public class HelpR2D2 extends SearchProb {
 		s.getGrid().setAgentLocation(newPos);
 	}
 
-	public void roughTransition(HelpR2D2State s, Position newPos, Operator op){
+	public void roughTransition(HelpR2D2State s, Position rockPos, Operator op) throws Exception{
 		Grid g = s.getGrid();
-		Position adjacentCell = Grid.nextCell(newPos, op);
+		Position adjacentCell = Grid.nextCell(rockPos, op);
 
 		/*
 		 * Check the adjacent cell to the rock/rock on pad.
@@ -71,13 +77,14 @@ public class HelpR2D2 extends SearchProb {
 		 */
 		case OBSTACLE:
 		case ROCK:
+		case ROCKONTELEPORTAL:
 		case ROCKONPAD: s = null; return;
 		/*
 		 * 2. The rock is movable.
 		 */
 		case BLANK:
 		case TELEPORTAL: 
-		case PAD: 
+		case PAD: g.moveRock(rockPos, adjacentCell);
 		}
 	}
 
