@@ -5,5 +5,6 @@ public enum CellType {
 	ROCK,
 	PAD,
 	ROCKONPAD,
-	TELEPORTAL
+	TELEPORTAL,
+	ROCKONTELEPORTAL
 }

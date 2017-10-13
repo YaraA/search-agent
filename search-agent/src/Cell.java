@@ -15,6 +15,9 @@ public class Cell {
 	public void setType(CellType type) {
 		this.type = type;
 	}
+	public Cell clone(){
+		return new Cell(this.type);
+	}
 	public String toString(){
 		/*
 		 * Returns the first letter of the enum name.

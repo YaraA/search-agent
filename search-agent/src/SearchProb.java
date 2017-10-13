@@ -3,19 +3,19 @@ import java.util.EnumSet;
 
 
 public abstract class SearchProb {
-	Object operators;
+	EnumSet operators;
 	State initialState;
 	
-	public SearchProb(Object operators, State initialState) {
+	public SearchProb(EnumSet operators, State initialState) {
 		this.operators= operators;
 		this.initialState= initialState;
 	}
 	
-	public abstract State transition(State state, Operator operator);
+	public abstract State transition(State state, Operator operator) throws Exception;
 	public abstract boolean goalTest(State state);
 	public abstract int pathCost(Node node);
 	public abstract EnumSet<Operator> allowedOperators(Node node);
-	public ArrayList<Node> expand(Node node){
+	public ArrayList<Node> expand(Node node) throws Exception{
 		//returns an array of all the possible children of Node node
 		ArrayList<Node> childrenNodes= new ArrayList<Node>();
 		EnumSet<Operator> allowedOperators= this.allowedOperators(node);
@@ -40,7 +40,7 @@ public abstract class SearchProb {
 		return operators;
 	}
 
-	public void setOperators(Object operators) {
+	public void setOperators(EnumSet operators) {
 		this.operators = operators;
 	}
 
