@@ -18,15 +18,15 @@ public abstract class SearchProb {
 	public abstract EnumSet<Operator> allowedOperators(Node node);
 	public ArrayList<Node> expand(Node node) throws Exception{
 		//returns an array of all the possible children of Node node
-		ArrayList<Node> childrenNodes= new ArrayList<Node>();
-		EnumSet<Operator> operators= this.allowedOperators(node);
+		ArrayList<Node> childrenNodes = new ArrayList<Node>();
+		EnumSet<Operator> operators = this.allowedOperators(node);
 		for (Operator o : operators) {  
-			State newState= this.transition(node.getState(), o);
+			State newState = this.transition(node.getState(), o);
 			if(newState != null)
 			{
 				int cost = this.pathCost(node);
-				int childDepth= node.getDepth() +1;
-				Node childNode= new Node(newState, node, o, childDepth, cost);
+				int childDepth = node.getDepth() +1;
+				Node childNode = new Node(newState, node, o, childDepth, cost);
 				childrenNodes.add(childNode);
 			}
 			
@@ -34,7 +34,7 @@ public abstract class SearchProb {
 		return childrenNodes;
 	}
 
-	public Node generalSearch(Strategy st){
+	public Node generalSearch(Strategy st) throws Exception{
 		/*
 		 * Create a node of the initial state.
 		 */
