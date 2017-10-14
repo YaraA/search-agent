@@ -45,10 +45,7 @@ public abstract class SearchStrategy {
 		 * calculates heuristic estimated cost for each child 
 		 * then queues them accordingly 
 		 */
-		for(int i=0; i<children.size(); i++){
-			int h= Heuristics.applyHeuristic(Strategy.GR1, children.get(i));
-			children.get(i).setEstimatedCostToGoal(h);
-		}
+		setChildrenHeuritic(children,Strategy.GR1);
 		queue.addAll(children);
 		Collections.sort(queue, new GreedyCompare());
 		
@@ -57,7 +54,25 @@ public abstract class SearchStrategy {
 
 	}
 	public static void AS1(LinkedList<Node> queue ,ArrayList<Node> children){
-
+		/*
+		 * calculates heuristic estimated cost for each child 
+		 * then queues them according to summation of path
+		 * cost and heuristic estimated cost 
+		 */
+		setChildrenHeuritic(children,Strategy.AS1);
+		queue.addAll(children);
+		Collections.sort(queue, new AStarCompare());
+		
+	}
+	public static void setChildrenHeuritic(ArrayList<Node> children, Strategy s)
+	{
+		/*
+		 * calculates heuristic estimated cost for each child 
+		 */
+		for(int i=0; i<children.size(); i++){
+			int h= Heuristics.applyHeuristic(s, children.get(i));
+			children.get(i).setEstimatedCostToGoal(h);
+		}
 	}
 	public static void AS2(LinkedList<Node> queue ,ArrayList<Node> children){
 
@@ -81,5 +96,17 @@ class GreedyCompare implements Comparator<Node> {
     	 * resulting from heuristic function
     	 */
         return ((Integer) n1.getEstimatedCostToGoal()).compareTo(n2.getEstimatedCostToGoal());       
+    }
+}
+class AStarCompare implements Comparator<Node> {
+	
+    public int compare(Node n1, Node n2) {
+    	/*
+    	 * compares for an ascending order based on the estimated cost to goal 
+    	 * resulting from heuristic function
+    	 */
+    	int n1Cost = n1.getEstimatedCostToGoal() + n1.getPathCost();
+    	int n2Cost = n2.getEstimatedCostToGoal() + n2.getPathCost();
+        return ((Integer) n1Cost).compareTo(n2Cost);       
     }
 }
