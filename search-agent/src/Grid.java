@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Random;
 
 
@@ -206,6 +207,35 @@ public class Grid {
 		newGrid.grid = gridArray;
 		return newGrid;
 	}
+	public ArrayList<Position> getRocksPositions(){
+		/*
+		 * returns a list of rocks' positions in the grid
+		 */
+		ArrayList<Position> rockPositions = new ArrayList<Position>(this.rocksCount);
+		for(int i=0; i<getM(); i++){
+			for(int j=0; j<getN(); j++){
+				if(this.grid[i][j].getType() == CellType.ROCK){
+					rockPositions.add(new Position(i,j));
+				}
+			}
+		}
+		return rockPositions;
+	}
+	public ArrayList<Position> getPadsPositions(){
+		/*
+		 * returns a list of pads' positions in the grid
+		 */
+		ArrayList<Position> padsPositions = new ArrayList<Position>(this.padsCount);
+		for(int i=0; i<getM(); i++){
+			for(int j=0; j<getN(); j++){
+				if(this.grid[i][j].getType() == CellType.PAD){
+					padsPositions.add(new Position(i,j));
+				}
+			}
+		}
+		return padsPositions;
+	}
+	
 	public String toString(){
 		/*
 		 * Prints the grid in a nice visual format.
