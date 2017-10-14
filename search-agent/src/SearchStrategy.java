@@ -41,7 +41,17 @@ public abstract class SearchStrategy {
 
 	}
 	public static void GR1(LinkedList<Node> queue ,ArrayList<Node> children){
-
+		/*
+		 * calculates heuristic estimated cost for each child 
+		 * then queues them accordingly 
+		 */
+		for(int i=0; i<children.size(); i++){
+			int h= Heuristics.applyHeuristic(Strategy.GR1, children.get(i));
+			children.get(i).setEstimatedCostToGoal(h);
+		}
+		queue.addAll(children);
+		Collections.sort(queue, new GreedyCompare());
+		
 	}
 	public static void GR2(LinkedList<Node> queue ,ArrayList<Node> children){
 
@@ -61,5 +71,15 @@ class CostCompare implements Comparator<Node> {
     	 * compares for an ascending order based on the path cost
     	 */
         return ((Integer) n1.getPathCost()).compareTo(n2.getPathCost());       
+    }
+}
+class GreedyCompare implements Comparator<Node> {
+	
+    public int compare(Node n1, Node n2) {
+    	/*
+    	 * compares for an ascending order based on the estimated cost to goal 
+    	 * resulting from heuristic function
+    	 */
+        return ((Integer) n1.getEstimatedCostToGoal()).compareTo(n2.getEstimatedCostToGoal());       
     }
 }
