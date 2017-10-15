@@ -54,7 +54,7 @@ public class Node {
 	public void setPathCost(int pathCost) {
 		this.pathCost = pathCost;
 	}
-	
+
 	public int getEstimatedCostToGoal() {
 		return estimatedCostToGoal;
 	}
@@ -62,7 +62,4 @@ public class Node {
 	public void setEstimatedCostToGoal(int estimatedCostToGoal) {
 		this.estimatedCostToGoal = estimatedCostToGoal;
 	}
-
-	
-
 }

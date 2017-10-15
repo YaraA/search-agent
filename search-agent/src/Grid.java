@@ -91,6 +91,7 @@ public class Grid {
 		createCells(rocks, CellType.ROCK); 
 		createCells(obstacles, CellType.OBSTACLE);
 	}
+	
 	public void createCells(int count, CellType type){
 		Random random = new Random();
 		for(int k=0; k < count; k++){
@@ -117,8 +118,8 @@ public class Grid {
 		}
 	}
 
-	/* isActivated()
-	 * returns true if all rocks are placed on pressure pads
+	/* isActivated:
+	 * Returns true if all rocks are placed on pressure pads
 	 * and hence the teleportal is activated.
 	 */
 	public boolean isActivated(){
@@ -134,13 +135,19 @@ public class Grid {
 		}
 		return true;
 	}
+	
+	/*moveRock:
+	 * Handles the case where the agent pushes a rock to a valid position,
+	 * by updating the position of the agent and the rock,
+	 * along with the types of the affected cells (if any).
+	 */
 	public void moveRock(Position rockCell, Position adjCell) throws Exception{
 		/*
 		 * 1. Update agent location after moving into the rock cell.
 		 */
 		this.agentLocation.set(rockCell);
 		/*
-		 * 2. Update rockCell new type
+		 * 2. Update rockCell new type.
 		 */
 		CellType rockCellType = getCellType(rockCell);
 		CellType newRockCellType;
@@ -152,7 +159,7 @@ public class Grid {
 		}
 		getCell(rockCell).setType(newRockCellType);
 		/*
-		 * 3. Update adjCell new type
+		 * 3. Update adjCell new type.
 		 */
 		CellType adjCellType= getCellType(adjCell);
 		CellType newAdjCellType;
@@ -209,7 +216,7 @@ public class Grid {
 	}
 	public ArrayList<Position> getRocksPositions(){
 		/*
-		 * returns a list of rocks' positions in the grid
+		 * Returns a list of rocks' positions in the grid.
 		 */
 		ArrayList<Position> rockPositions = new ArrayList<Position>(this.rocksCount);
 		for(int i=0; i<getM(); i++){
@@ -223,7 +230,7 @@ public class Grid {
 	}
 	public ArrayList<Position> getPadsPositions(){
 		/*
-		 * returns a list of pads' positions in the grid
+		 * Returns a list of pads' positions in the grid.
 		 */
 		ArrayList<Position> padsPositions = new ArrayList<Position>(this.padsCount);
 		for(int i=0; i<getM(); i++){
