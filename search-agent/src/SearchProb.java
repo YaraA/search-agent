@@ -34,7 +34,7 @@ public abstract class SearchProb {
 		return childrenNodes;
 	}
 
-	public Node generalSearch(Strategy st) throws Exception{
+	public SearchRes generalSearch(Strategy st) throws Exception{
 		/*
 		 * Create a new search strategy instance.
 		 */
@@ -48,12 +48,17 @@ public abstract class SearchProb {
 		 */
 		LinkedList<Node> queue = new LinkedList<Node>();
 		queue.add(root);
+		/*
+		 * Counter to keep track of expanded nodes.
+		 */
+		int expNodesCount = 0;
 		while(true){
 			if(queue.isEmpty())
 				return null;
 			Node node = queue.removeFirst();
+			expNodesCount++;
 			if(goalTest(node.getState()))
-				return node;
+				return new SearchRes(node, expNodesCount);
 			ArrayList<Node> children = expand(node);
 			search.QING(st, root, queue, children);
 		}
