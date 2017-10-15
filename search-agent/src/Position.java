@@ -33,4 +33,10 @@ public class Position {
 	public boolean equals(Position p){
 		return (this.x==p.x) && (this.y==p.y);
 	}
+	public int cityBlockDistanceTo(Position p){
+		/*
+		 * Returns the difference in x + difference in y.
+		 */
+		return Math.abs(p.x - this.x) + Math.abs(p.y - this.y);
+	}
 }
