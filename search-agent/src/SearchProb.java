@@ -16,11 +16,11 @@ public abstract class SearchProb {
 	public abstract boolean goalTest(State state);
 	public abstract int pathCost(Node node);
 	public abstract EnumSet<Operator> allowedOperators(Node node);
+	
 	public ArrayList<Node> expand(Node node) throws Exception{
 		//returns an array of all the possible children of Node node
 		ArrayList<Node> childrenNodes = new ArrayList<Node>();
-		EnumSet<Operator> operators = this.allowedOperators(node);
-		for (Operator o : operators) {  
+		for (Operator o : this.operators) {  
 			State newState = this.transition(node.getState(), o);
 			if(newState != null)
 			{
@@ -53,8 +53,11 @@ public abstract class SearchProb {
 		 */
 		int expNodesCount = 0;
 		while(true){
-			if(queue.isEmpty())
-				return null;
+			if(queue.isEmpty()) 
+				/*
+				 * No solution found.
+				 */
+				return new SearchRes(null, 0);
 			Node node = queue.removeFirst();
 			expNodesCount++;
 			if(goalTest(node.getState()))

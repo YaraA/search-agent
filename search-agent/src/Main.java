@@ -2,10 +2,12 @@ import java.util.EnumSet;
 import java.util.Random;
 
 public class Main {
-	final static int gridLimit = 30; //upper bound for m & n values of the grid
-
+	final static int gridLimit = 6; //upper bound for m & n values of the grid
+	
 	public static void main (String[]args) throws Exception{
-		Search(GenGrid(), Strategy.BF, false);
+		Grid grid= GenGrid();
+		System.out.println(grid);
+		Search(grid, Strategy.BF, false);
 	}
 
 	/* genGrid() generates random numbers of grid dimensions and objects,
@@ -62,6 +64,6 @@ public class Main {
 		 * Create a new instance of the problem.
 		 */
 		HelpR2D2 problem =  new HelpR2D2(EnumSet.allOf(Operator.class), initialState);
-		problem.generalSearch(st);	
+		System.out.println(problem.generalSearch(st));
 	}
 }
