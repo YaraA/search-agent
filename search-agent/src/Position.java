@@ -39,4 +39,16 @@ public class Position {
 		 */
 		return Math.abs(p.x - this.x) + Math.abs(p.y - this.y);
 	}
+	public int euclidDistanceTo(Position p){
+		int deltaX = p.x - this.x;
+		int deltaY = p.y - this.y;
+		return (int) Math.sqrt(deltaX*deltaX + deltaY*deltaY);
+	}
+	public int distanceTo(Position p, DistanceType distType){
+		switch(distType){
+		case CITYBLOCK: return cityBlockDistanceTo(p);
+		case EUCLID: return euclidDistanceTo(p);
+		default: return 0;
+		}
+	}
 }

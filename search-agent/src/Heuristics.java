@@ -21,7 +21,26 @@ public abstract class Heuristics {
 	private static int heuristic1(Node node) {
 		/*
 		 * The estimated cost to the goal of a given state 
-		 * is the summation of the city-block distances
+		 * is the summation of the CITY-BLOCK distances
+		 * from each rock to its nearest pad.
+		 */
+		return rockstoPadsHeuristic(node, DistanceType.CITYBLOCK);
+	}
+
+
+	private static int heuristic2(Node node){
+		/*
+		 * The estimated cost to the goal of a given state 
+		 * is the summation of the EUCLIDEAN distances
+		 * from each rock to its nearest pad.
+		 */
+		return rockstoPadsHeuristic(node, DistanceType.EUCLID);
+	}
+
+	private static int rockstoPadsHeuristic(Node node, DistanceType distType){
+		/*
+		 * Calculates the estimated cost to the goal of a given state:
+		 * the summation of the distances (of the given type)
 		 * from each rock to its nearest pad.
 		 */
 		Grid grid = ((HelpR2D2State) node.getState()).getGrid();
@@ -35,19 +54,30 @@ public abstract class Heuristics {
 		 */
 		for(Position rock : rockPositions){
 			int disToNearestPad = m + n ; //the maximum possible distance
-			
+
 			for(Position pad : padsPositions){
-				int currDist = rock.cityBlockDistanceTo(pad);
+				int currDist = rock.distanceTo(pad, distType);
 				disToNearestPad = Math.min(disToNearestPad, currDist);
 			}
-			
+
 			result += disToNearestPad;
 		}
 
 		return result;
 	}
 
-	private static int heuristic2(Node n) {
-		return 0;
+	private static int heuristic3(Node node) {
+		/*
+		 * The estimated cost to the goal of a given state 
+		 * is the CITY-BLOCK distance from the agent to the teleportal.
+		 */
+		Grid grid = ((HelpR2D2State) node.getState()).getGrid();
+		Position agentPosition = grid.getAgentLocation();
+		Position teleportalPosition = grid.getTeleportalPosition();
+
+		return agentPosition.cityBlockDistanceTo(teleportalPosition);
 	}
+}
+enum DistanceType{
+	CITYBLOCK, EUCLID
 }
