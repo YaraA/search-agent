@@ -75,9 +75,6 @@ public abstract class Heuristics {
 		Position agentPosition = grid.getAgentLocation();
 		Position teleportalPosition = grid.getTeleportalPosition();
 
-		return agentPosition.cityBlockDistanceTo(teleportalPosition);
+		return agentPosition.distanceTo(teleportalPosition, DistanceType.CITYBLOCK);
 	}
-}
-enum DistanceType{
-	CITYBLOCK, EUCLID
 }
