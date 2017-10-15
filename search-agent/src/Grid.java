@@ -60,14 +60,6 @@ public class Grid {
 		this.m = m;
 		this.n = n;
 		this.grid = new Cell[m][n];
-		/*
-		 * Initialize the grid with BLANK cells.
-		 */
-		for(int i=0; i<m; i++){
-			for(int j=0; j<n; j++){
-				grid[i][j] = new Cell(CellType.BLANK);
-			}
-		}
 	}
 	public Grid(int m, int n, int pads, int rocks, int obstacles){
 		/*
@@ -77,6 +69,14 @@ public class Grid {
 		this.padsCount = pads;
 		this.rocksCount = rocks;
 		this.obstaclesCount = obstacles;
+		/*
+		 * Initialize the grid with BLANK cells.
+		 */
+		for(int i=0; i<m; i++){
+			for(int j=0; j<n; j++){
+				grid[i][j] = new Cell(CellType.BLANK);
+			}
+		}
 	}
 	public void fillGridRandomly(){
 		/*
@@ -200,6 +200,20 @@ public class Grid {
 
 		return new Position(x,y);
 	}
+	public void addCell(int i, int j, CellType t){
+		/*
+		 * Create a cell in position (i,j) of type t,
+		 * and increment count of its type (if needed).
+		 */
+		this.grid[i][j] = new Cell(t);
+		switch(t){
+		case ROCK: rocksCount++; break;
+		case PAD: padsCount++; break;
+		case OBSTACLE: obstaclesCount++; break;
+		default:
+			break;
+		}
+	}
 	public Grid clone(){
 		/*
 		 * Deep cloning of the cells in the grid array.
@@ -316,7 +330,10 @@ public class Grid {
 					}
 					if(type == CellType.TELEPORTAL)
 						g.teleportalPosition = new Position(i, j);
-					g.grid[i][j].setType(type);
+					/*
+					 * Add the cell to the grid in proper position.
+					 */
+					g.addCell(i, j, type);
 				}
 			}
 			sc.close();
