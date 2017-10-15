@@ -219,6 +219,11 @@ public class Grid {
 			}
 		}
 		newGrid.grid = gridArray;
+		/*
+		 * 3. Clone teleportal and agent positions.
+		 */
+		newGrid.agentLocation = this.agentLocation.clone();
+		newGrid.teleportalPosition = this.teleportalPosition.clone();
 		return newGrid;
 	}
 
