@@ -4,10 +4,10 @@ import java.util.LinkedList;
 
 
 public abstract class SearchProb {
-	EnumSet operators;
+	EnumSet<Operator> operators;
 	State initialState;
 	
-	public SearchProb(EnumSet operators, State initialState) {
+	public SearchProb(EnumSet<Operator> operators, State initialState) {
 		this.operators= operators;
 		this.initialState= initialState;
 	}
@@ -36,6 +36,10 @@ public abstract class SearchProb {
 
 	public Node generalSearch(Strategy st) throws Exception{
 		/*
+		 * Create a new search strategy instance.
+		 */
+		SearchStrategy search = new SearchStrategy();
+		/*
 		 * Create a node of the initial state.
 		 */
 		Node root = new Node(initialState, null, null, 0, 0);
@@ -51,7 +55,7 @@ public abstract class SearchProb {
 			if(goalTest(node.getState()))
 				return node;
 			ArrayList<Node> children = expand(node);
-			SearchStrategy.QING(st, queue, children);
+			search.QING(st, root, queue, children);
 		}
 	}
 
@@ -60,7 +64,7 @@ public abstract class SearchProb {
 		return operators;
 	}
 
-	public void setOperators(EnumSet operators) {
+	public void setOperators(EnumSet<Operator> operators) {
 		this.operators = operators;
 	}
 
