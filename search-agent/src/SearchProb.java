@@ -4,10 +4,10 @@ import java.util.LinkedList;
 
 
 public abstract class SearchProb {
-	EnumSet operators;
+	EnumSet<Operator> operators;
 	State initialState;
 	
-	public SearchProb(EnumSet operators, State initialState) {
+	public SearchProb(EnumSet<Operator> operators, State initialState) {
 		this.operators= operators;
 		this.initialState= initialState;
 	}
@@ -64,7 +64,7 @@ public abstract class SearchProb {
 		return operators;
 	}
 
-	public void setOperators(EnumSet operators) {
+	public void setOperators(EnumSet<Operator> operators) {
 		this.operators = operators;
 	}
 
