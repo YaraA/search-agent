@@ -45,13 +45,19 @@ public abstract class SearchStrategy {
 		 * Sets estimated cost by the city-block heuristic for each child node,
 		 * then queues them accordingly in an ascending order via GreedyCompare.
 		 */
-		setChildrenHeuritic(children, Strategy.GR1);
+		Heuristics.setChildrenHeuritic(children, Strategy.GR1);
 		queue.addAll(children);
 		Collections.sort(queue, new GreedyCompare());
 
 	}
 	public static void GR2(LinkedList<Node> queue ,ArrayList<Node> children){
-
+		/*
+		 * Sets estimated cost by the city-block heuristic for each child node,
+		 * then queues them accordingly in an ascending order via GreedyCompare.
+		 */
+		Heuristics.setChildrenHeuritic(children, Strategy.GR2);
+		queue.addAll(children);
+		Collections.sort(queue, new GreedyCompare());
 	}
 	public static void AS1(LinkedList<Node> queue ,ArrayList<Node> children){
 		/*
@@ -59,24 +65,21 @@ public abstract class SearchStrategy {
 		 * then queues them according to the heuristic and the path cost
 		 * in an ascending order via AStarCompare.
 		 */
-		setChildrenHeuritic(children, Strategy.AS1);
+		Heuristics.setChildrenHeuritic(children, Strategy.AS1);
 		queue.addAll(children);
 		Collections.sort(queue, new AStarCompare());
 
 	}
-	public static void setChildrenHeuritic(ArrayList<Node> children, Strategy s)
-	{
-		/*
-		 * For each child, calculates an estimated cost to the goal
-		 * by the heuristic specified for each strategy.
-		 */
-		for(int i=0; i<children.size(); i++){
-			int h= Heuristics.applyHeuristic(s, children.get(i));
-			children.get(i).setEstimatedCostToGoal(h);
-		}
-	}
-	public static void AS2(LinkedList<Node> queue ,ArrayList<Node> children){
 
+	public static void AS2(LinkedList<Node> queue ,ArrayList<Node> children){
+		/*
+		 * Sets estimated cost by the city-block heuristic for each child node,
+		 * then queues them according to the second heuristic and the path cost
+		 * in an ascending order via AStarCompare.
+		 */
+		Heuristics.setChildrenHeuritic(children, Strategy.AS2);
+		queue.addAll(children);
+		Collections.sort(queue, new AStarCompare());
 	}
 
 }
