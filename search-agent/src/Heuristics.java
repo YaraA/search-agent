@@ -77,4 +77,15 @@ public abstract class Heuristics {
 
 		return agentPosition.distanceTo(teleportalPosition, DistanceType.CITYBLOCK);
 	}
+	public static void setChildrenHeuritic(ArrayList<Node> children, Strategy s)
+	{
+		/*
+		 * For each child, calculates an estimated cost to the goal
+		 * by the heuristic specified for each strategy.
+		 */
+		for(int i=0; i<children.size(); i++){
+			int h= Heuristics.applyHeuristic(s, children.get(i));
+			children.get(i).setEstimatedCostToGoal(h);
+		}
+	}
 }
