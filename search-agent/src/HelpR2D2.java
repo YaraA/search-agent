@@ -108,7 +108,7 @@ public class HelpR2D2 extends SearchProb {
 		if(node.getParent() == null)
 			return 0;
 		
-		return 1 + pathCost(node.getParent());
+		return 1 + node.getParent().getPathCost();
 	}
 
 	@Override

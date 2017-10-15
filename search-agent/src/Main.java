@@ -1,16 +1,19 @@
+import java.util.EnumSet;
 import java.util.Random;
 
 public class Main {
-	final static int gridLimit = 30; //upper bound for m & n values of the grid
-
-	public static void main (String[]args){
-		System.out.println(genGrid());
+	final static int gridLimit = 6; //upper bound for m & n values of the grid
+	
+	public static void main (String[]args) throws Exception{
+		Grid grid= GenGrid();
+		System.out.println(grid);
+		Search(grid, Strategy.BF, false);
 	}
 
 	/* genGrid() generates random numbers of grid dimensions and objects,
 	 * then constructs the grid.
 	 */
-	public static  Grid genGrid(){
+	public static Grid GenGrid(){
 		/*
 		 To generate random number between min(inclusive) and max(inclusive), use: 
 		 random.nextInt((max - min) + 1) + min;
@@ -43,7 +46,7 @@ public class Main {
 		/* 1. Adjust the limit to the number of remaining unoccupied cells.
 		 * 2. Generate a random number of obstacles with a min of 0.
 		 */
-		
+
 		int obstaclesLimit = gridLimit - rocks - pads;
 		int obstacles = 0;
 		if(obstaclesLimit > 0)
@@ -52,8 +55,15 @@ public class Main {
 		Grid grid= new Grid(m, n, rocks, pads, obstacles);
 		return grid;
 	}
-	public Object Search(Grid grid, String strategy, boolean visualize){
-		return null;
+	public static void Search(Grid grid, Strategy st, boolean visualize) throws Exception{
+		/*
+		 * Create initial state.
+		 */
+		HelpR2D2State initialState = new HelpR2D2State(grid);
+		/*
+		 * Create a new instance of the problem.
+		 */
+		HelpR2D2 problem =  new HelpR2D2(EnumSet.allOf(Operator.class), initialState);
+		System.out.println(problem.generalSearch(st));
 	}
-
 }
