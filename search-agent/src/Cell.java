@@ -22,6 +22,6 @@ public class Cell {
 		/*
 		 * Returns the first letter of the enum name.
 		 */
-		return type.toString().charAt(0) + "";
+		return type.toString();
 	}
 }

@@ -5,7 +5,7 @@ public class Main {
 	final static int gridLimit = 6; //upper bound for m & n values of the grid
 	
 	public static void main (String[]args) throws Exception{
-		Grid grid= GenGrid();
+		Grid grid= Grid.createGridFromFile("noSol1");
 		System.out.println(grid);
 		Search(grid, Strategy.BF, false);
 	}
@@ -53,6 +53,7 @@ public class Main {
 			obstacles= random.nextInt(obstaclesLimit);
 
 		Grid grid= new Grid(m, n, rocks, pads, obstacles);
+		grid.fillGridRandomly();
 		return grid;
 	}
 	public static void Search(Grid grid, Strategy st, boolean visualize) throws Exception{
