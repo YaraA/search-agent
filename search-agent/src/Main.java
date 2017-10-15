@@ -4,7 +4,7 @@ import java.util.Random;
 public class Main {
 	final static int gridLimit = 30; //upper bound for m & n values of the grid
 
-	public static void main (String[]args){
+	public static void main (String[]args) throws Exception{
 		Search(GenGrid(), Strategy.BF, false);
 	}
 

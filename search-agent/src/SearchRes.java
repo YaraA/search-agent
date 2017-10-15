@@ -47,6 +47,4 @@ public class SearchRes {
 	public void setExpNodesCount(int expNodesCount) {
 		this.expNodesCount = expNodesCount;
 	}
-	
-
 }
