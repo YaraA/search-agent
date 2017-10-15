@@ -11,10 +11,12 @@ public class SearchStrategy {
 		case DF: DFS(queue, children); break;
 		case UC: UC(queue, children); break;
 		case ID: ID(root, queue, children); break;
-		case GR1: GR1(queue, children); break;
-		case GR2: GR2(queue, children); break;
-		case AS1: AS1(queue, children); break;
-		case AS2: AS2(queue, children); break;
+		case GR1: GR(queue, children, Strategy.GR1); break;
+		case GR2: GR(queue, children, Strategy.GR2); break;
+		case GR3: GR(queue, children, Strategy.GR3); break;
+		case AS1: AS(queue, children, Strategy.AS1); break;
+		case AS2: AS(queue, children, Strategy.AS2); break;
+		case AS3: AS(queue, children, Strategy.AS3); break;
 		}	
 	}
 	public void BFS(LinkedList<Node> queue ,ArrayList<Node> children){
@@ -56,48 +58,26 @@ public class SearchStrategy {
 			if(children.get(0).getDepth() <= depthLimit)
 				queue.addAll(0, children);
 	}
-	public void GR1(LinkedList<Node> queue ,ArrayList<Node> children){
+	public void GR(LinkedList<Node> queue ,ArrayList<Node> children, Strategy s){
 		/*
 		 * Sets estimated cost by the city-block heuristic for each child node,
 		 * then queues them accordingly in an ascending order via GreedyCompare.
 		 */
-		Heuristics.setChildrenHeuristic(children, Strategy.GR1);
+		Heuristics.setChildrenHeuristic(children, s);
 		queue.addAll(children);
 		Collections.sort(queue, new GreedyCompare());
 
 	}
-	public void GR2(LinkedList<Node> queue ,ArrayList<Node> children){
-		/*
-		 * Sets estimated cost by the city-block heuristic for each child node,
-		 * then queues them accordingly in an ascending order via GreedyCompare.
-		 */
-		Heuristics.setChildrenHeuristic(children, Strategy.GR2);
-		queue.addAll(children);
-		Collections.sort(queue, new GreedyCompare());
-	}
-	public void AS1(LinkedList<Node> queue ,ArrayList<Node> children){
+	public void AS(LinkedList<Node> queue ,ArrayList<Node> children, Strategy s){
 		/*
 		 * Sets estimated cost by the city-block heuristic for each child node,
 		 * then queues them according to the heuristic and the path cost
 		 * in an ascending order via AStarCompare.
 		 */
-		Heuristics.setChildrenHeuristic(children, Strategy.AS1);
-		queue.addAll(children);
-		Collections.sort(queue, new AStarCompare());
-
-	}
-
-	public void AS2(LinkedList<Node> queue ,ArrayList<Node> children){
-		/*
-		 * Sets estimated cost by the city-block heuristic for each child node,
-		 * then queues them according to the second heuristic and the path cost
-		 * in an ascending order via AStarCompare.
-		 */
-		Heuristics.setChildrenHeuristic(children, Strategy.AS2);
+		Heuristics.setChildrenHeuristic(children, s);
 		queue.addAll(children);
 		Collections.sort(queue, new AStarCompare());
 	}
-
 }
 /*
  * Comparator classes for different search strategies and their respective QING fn.

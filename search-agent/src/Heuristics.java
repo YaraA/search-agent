@@ -14,6 +14,8 @@ public abstract class Heuristics {
 		case AS1: return heuristic1(n);
 		case GR2: 
 		case AS2: return heuristic2(n);
+		case GR3: 
+		case AS3: return heuristic3(n);
 		}
 		return 0;
 	}
