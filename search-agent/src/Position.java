@@ -35,7 +35,7 @@ public class Position {
 	}
 	public int cityBlockDistanceTo(Position p){
 		/*
-		 * returns the difference in x + difference in y
+		 * Returns the difference in x + difference in y.
 		 */
 		return Math.abs(p.x - this.x) + Math.abs(p.y - this.y);
 	}

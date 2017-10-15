@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.Random;
 
 
@@ -91,7 +92,7 @@ public class Grid {
 		createCells(rocks, CellType.ROCK); 
 		createCells(obstacles, CellType.OBSTACLE);
 	}
-	
+
 	public void createCells(int count, CellType type){
 		Random random = new Random();
 		for(int k=0; k < count; k++){
@@ -135,7 +136,7 @@ public class Grid {
 		}
 		return true;
 	}
-	
+
 	/*moveRock:
 	 * Handles the case where the agent pushes a rock to a valid position,
 	 * by updating the position of the agent and the rock,
@@ -152,10 +153,10 @@ public class Grid {
 		CellType rockCellType = getCellType(rockCell);
 		CellType newRockCellType;
 		switch(rockCellType){
-			case ROCK: newRockCellType = CellType.BLANK; break;
-			case ROCKONPAD: newRockCellType = CellType.PAD; break;
-			case ROCKONTELEPORTAL: newRockCellType = CellType.TELEPORTAL; break;
-			default: throw new Exception("Tried to move rock from an invalid cell.");
+		case ROCK: newRockCellType = CellType.BLANK; break;
+		case ROCKONPAD: newRockCellType = CellType.PAD; break;
+		case ROCKONTELEPORTAL: newRockCellType = CellType.TELEPORTAL; break;
+		default: throw new Exception("Tried to move rock from an invalid cell.");
 		}
 		getCell(rockCell).setType(newRockCellType);
 		/*
@@ -164,13 +165,13 @@ public class Grid {
 		CellType adjCellType= getCellType(adjCell);
 		CellType newAdjCellType;
 		switch(adjCellType){
-			case BLANK: newAdjCellType = CellType.ROCK; break;
-			case PAD: newAdjCellType = CellType.ROCKONPAD; break;
-			case TELEPORTAL: newAdjCellType = CellType.ROCKONTELEPORTAL; break;
-			default: throw new Exception("Tried to move rock to an invalid cell.");
+		case BLANK: newAdjCellType = CellType.ROCK; break;
+		case PAD: newAdjCellType = CellType.ROCKONPAD; break;
+		case TELEPORTAL: newAdjCellType = CellType.ROCKONTELEPORTAL; break;
+		default: throw new Exception("Tried to move rock to an invalid cell.");
 		}
 		getCell(adjCell).setType(newAdjCellType);
-		
+
 	}
 	public boolean liesInGrid(Position p){
 		/*
@@ -183,14 +184,14 @@ public class Grid {
 	}
 	public static Position nextCell(Position curr, Operator op){
 		int x = curr.getX(); int y = curr.getY();
-		
+
 		switch(op){
 		case UP: y++; break;
 		case DOWN: y--; break;
 		case RIGHT: x++; break;
 		case LEFT: x--; break;
 		}
-		
+
 		return new Position(x,y);
 	}
 	public Grid clone(){
@@ -214,35 +215,36 @@ public class Grid {
 		newGrid.grid = gridArray;
 		return newGrid;
 	}
-	public ArrayList<Position> getRocksPositions(){
+
+	public ArrayList<Position> getPositionsofTypes(EnumSet<CellType> types){
 		/*
-		 * Returns a list of rocks' positions in the grid.
+		 * Returns a list of the positions of cells of the given type in the grid.
 		 */
-		ArrayList<Position> rockPositions = new ArrayList<Position>(this.rocksCount);
+		ArrayList<Position> positions = new ArrayList<Position>(this.rocksCount);
 		for(int i=0; i<getM(); i++){
 			for(int j=0; j<getN(); j++){
-				if(this.grid[i][j].getType() == CellType.ROCK){
-					rockPositions.add(new Position(i,j));
+				if(types.contains(this.grid[i][j].getType())){
+					positions.add(new Position(i,j));
 				}
 			}
 		}
-		return rockPositions;
+		return positions;
+	}
+	public ArrayList<Position> getRocksPositions(){
+		/*
+		 * Returns a list of the positions of ROCKS in the grid.
+		 */
+		ArrayList<Position> rocksPositions = this.getPositionsofTypes(CellType.getRockTypes());
+		return rocksPositions;
 	}
 	public ArrayList<Position> getPadsPositions(){
 		/*
-		 * Returns a list of pads' positions in the grid.
+		 * Returns a list of the positions of PADS in the grid.
 		 */
-		ArrayList<Position> padsPositions = new ArrayList<Position>(this.padsCount);
-		for(int i=0; i<getM(); i++){
-			for(int j=0; j<getN(); j++){
-				if(this.grid[i][j].getType() == CellType.PAD){
-					padsPositions.add(new Position(i,j));
-				}
-			}
-		}
+		ArrayList<Position> padsPositions = this.getPositionsofTypes(CellType.getPadTypes());
 		return padsPositions;
 	}
-	
+
 	public String toString(){
 		/*
 		 * Prints the grid in a nice visual format.

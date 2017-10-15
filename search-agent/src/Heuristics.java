@@ -3,9 +3,11 @@ import java.util.ArrayList;
 
 public abstract class Heuristics {
 
+	@SuppressWarnings("incomplete-switch")
 	public static int applyHeuristic(Strategy s, Node n){
 		/*
-		 * calls heuristic function according to given strategy
+		 * Returns the estimated cost to the goal calculated by 
+		 * the corresponding heuristic function of the given search strategy.
 		 */
 		switch(s){
 		case GR1: 
@@ -17,32 +19,35 @@ public abstract class Heuristics {
 	}
 
 	private static int heuristic1(Node node) {
-		HelpR2D2State currState = ((HelpR2D2State) node.getState());
-		Grid grid = currState.getGrid();
+		/*
+		 * The estimated cost to the goal of a given state 
+		 * is the summation of the city-block distances
+		 * from each rock to its nearest pad.
+		 */
+		Grid grid = ((HelpR2D2State) node.getState()).getGrid();
 		ArrayList<Position> rockPositions = grid.getRocksPositions();
 		ArrayList<Position> padsPositions = grid.getPadsPositions();
 		int m = grid.getM();
 		int n = grid.getN();
 		int result = 0;
 		/*
-		 * iterates over rockPositions and padsPositions, then calculates 
-		 * the city block distance for each rock to the nearest pad
+		 * For every rock, calculates the city-block distance to its nearest pad.
 		 */
-		for(int i=0; i<rockPositions.size(); i++){
-			int disToNearestPad = m*n ;
-			for(int j=0; j<padsPositions.size(); j++){
-				int dis = rockPositions.get(i).cityBlockDistanceTo(padsPositions.get(j));
-				disToNearestPad = Math.min(disToNearestPad, dis);
+		for(Position rock : rockPositions){
+			int disToNearestPad = m + n ; //the maximum possible distance
+			
+			for(Position pad : padsPositions){
+				int currDist = rock.cityBlockDistanceTo(pad);
+				disToNearestPad = Math.min(disToNearestPad, currDist);
 			}
+			
 			result += disToNearestPad;
 		}
-		
+
 		return result;
 	}
-	
+
 	private static int heuristic2(Node n) {
 		return 0;
 	}
-	 
-
 }
