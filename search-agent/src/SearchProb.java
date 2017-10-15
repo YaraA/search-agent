@@ -55,7 +55,7 @@ public abstract class SearchProb {
 			if(goalTest(node.getState()))
 				return node;
 			ArrayList<Node> children = expand(node);
-			search.QING(st, queue, children);
+			search.QING(st, root, queue, children);
 		}
 	}
 

@@ -4,12 +4,13 @@ import java.util.Comparator;
 import java.util.LinkedList;
 
 public class SearchStrategy {
-	public void QING(Strategy s, LinkedList<Node> queue ,ArrayList<Node> children){
+	private int depthLimit;
+	public void QING(Strategy s, Node root, LinkedList<Node> queue ,ArrayList<Node> children){
 		switch(s){
 		case BF: BFS(queue, children); break;
 		case DF: DFS(queue, children); break;
 		case UC: UC(queue, children); break;
-		case ID: ID(queue, children); break;
+		case ID: ID(root, queue, children); break;
 		case GR1: GR1(queue, children); break;
 		case GR2: GR2(queue, children); break;
 		case AS1: AS1(queue, children); break;
@@ -37,15 +38,30 @@ public class SearchStrategy {
 		queue.addAll(children);
 		Collections.sort(queue, new CostCompare());
 	}
-	public void ID(LinkedList<Node> queue ,ArrayList<Node> children){
-
+	public void ID(Node root, LinkedList<Node> queue ,ArrayList<Node> children){
+		/*
+		 * If queue is empty, then increment the depth limit and insert the root.
+		 */
+		if(queue.isEmpty())
+		{
+			depthLimit++;
+			queue.add(root);
+			return;
+		}
+		/*
+		 * If the children are within the depth limit, add them to the beginning of the queue.
+		 * OTHERWISE: neglect them.
+		 */
+		if(!children.isEmpty())
+			if(children.get(0).getDepth() <= depthLimit)
+				queue.addAll(0, children);
 	}
 	public void GR1(LinkedList<Node> queue ,ArrayList<Node> children){
 		/*
 		 * Sets estimated cost by the city-block heuristic for each child node,
 		 * then queues them accordingly in an ascending order via GreedyCompare.
 		 */
-		Heuristics.setChildrenHeuritic(children, Strategy.GR1);
+		Heuristics.setChildrenHeuristic(children, Strategy.GR1);
 		queue.addAll(children);
 		Collections.sort(queue, new GreedyCompare());
 
@@ -55,7 +71,7 @@ public class SearchStrategy {
 		 * Sets estimated cost by the city-block heuristic for each child node,
 		 * then queues them accordingly in an ascending order via GreedyCompare.
 		 */
-		Heuristics.setChildrenHeuritic(children, Strategy.GR2);
+		Heuristics.setChildrenHeuristic(children, Strategy.GR2);
 		queue.addAll(children);
 		Collections.sort(queue, new GreedyCompare());
 	}
@@ -65,7 +81,7 @@ public class SearchStrategy {
 		 * then queues them according to the heuristic and the path cost
 		 * in an ascending order via AStarCompare.
 		 */
-		Heuristics.setChildrenHeuritic(children, Strategy.AS1);
+		Heuristics.setChildrenHeuristic(children, Strategy.AS1);
 		queue.addAll(children);
 		Collections.sort(queue, new AStarCompare());
 
@@ -77,7 +93,7 @@ public class SearchStrategy {
 		 * then queues them according to the second heuristic and the path cost
 		 * in an ascending order via AStarCompare.
 		 */
-		Heuristics.setChildrenHeuritic(children, Strategy.AS2);
+		Heuristics.setChildrenHeuristic(children, Strategy.AS2);
 		queue.addAll(children);
 		Collections.sort(queue, new AStarCompare());
 	}
