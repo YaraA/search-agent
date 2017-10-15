@@ -5,7 +5,6 @@ public class Node {
 	private Operator operator;
 	private int depth;
 	private int pathCost;
-	private int estimatedCostToGoal;
 
 	public Node(State s, Node p, Operator o, int d, int c) {
 		this.state = s;
@@ -54,12 +53,6 @@ public class Node {
 	public void setPathCost(int pathCost) {
 		this.pathCost = pathCost;
 	}
+	
 
-	public int getEstimatedCostToGoal() {
-		return estimatedCostToGoal;
-	}
-
-	public void setEstimatedCostToGoal(int estimatedCostToGoal) {
-		this.estimatedCostToGoal = estimatedCostToGoal;
-	}
 }
