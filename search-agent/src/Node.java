@@ -65,4 +65,7 @@ public class Node {
 	public void setEstimatedCostToGoal(int estimatedCostToGoal) {
 		this.estimatedCostToGoal = estimatedCostToGoal;
 	}
+	public String toString(){
+		return this.getState().toString();
+	}
 }

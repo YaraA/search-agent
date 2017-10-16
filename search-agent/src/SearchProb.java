@@ -1,9 +1,6 @@
 import java.util.ArrayList;
 import java.util.EnumSet;
-import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.Scanner;
-
 
 public abstract class SearchProb {
 	EnumSet<Operator> operators;
@@ -29,7 +26,7 @@ public abstract class SearchProb {
 				Node childNode = new Node(newState, node, o);
 				childNode.setPathCost(this.pathCost(childNode));
 				childrenNodes.add(childNode);
-				
+
 			}
 
 		}
@@ -61,23 +58,19 @@ public abstract class SearchProb {
 				 */
 				return new SearchRes(null, 0);
 			Node node = queue.removeFirst();
-			System.out.println("Dequed:");
-			System.out.println(((HelpR2D2State) node.getState()).getGrid().getAgentLocation());
-			if (!visitedNodes.contains(node))
-			{
-				visitedNodes.add(node);
-				HelpR2D2State s = (HelpR2D2State) node.getState();
-				expNodesCount++;
-				if(goalTest(node.getState()))
-					return new SearchRes(node, expNodesCount);
+			boolean isNotVisited = !visitedNodes.contains(node);
+			boolean isEmptyQueue = queue.isEmpty();
+			if ( isNotVisited || isEmptyQueue)
+			{	
+				if(isNotVisited){
+					visitedNodes.add(node);
+					expNodesCount++;
+					if(goalTest(node.getState()))
+						return new SearchRes(node, expNodesCount);
+				}
 				ArrayList<Node> children = expand(node);
 				search.QING(st, root, queue, children, visitedNodes);
 			}
-			else{
-				System.out.println("Repeated state");
-				System.out.println(((HelpR2D2State) node.getState()).getGrid().getAgentLocation());
-			}
-			
 		}
 	}
 
