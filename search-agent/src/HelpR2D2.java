@@ -35,25 +35,26 @@ public class HelpR2D2 extends SearchProb {
 		 */
 		case BLANK:
 		case TELEPORTAL:
-		case PAD: smoothTransition(newState, nextCell); break;
+		case PAD: return smoothTransition(newState, nextCell); 
 		case OBSTACLE: return null;
 		/*
 		 * Next cell contains a rock.
 		 */
 		case ROCK:
 		case ROCKONTELEPORTAL:
-		case ROCKONPAD: roughTransition(newState, nextCell, op); break;
+		case ROCKONPAD: return roughTransition(newState, nextCell, op);
 		}
 		return newState;
 	}
-	public void smoothTransition(HelpR2D2State s, Position newPos){
+	public State smoothTransition(HelpR2D2State s, Position newPos){
 		/*
 		 * Updates the agent location in case the new cell is BLANK or PAD.
 		 */
 		s.getGrid().setAgentLocation(newPos);
+		return s;
 	}
 
-	public void roughTransition(HelpR2D2State s, Position rockPos, Operator op) throws Exception{
+	public State roughTransition(HelpR2D2State s, Position rockPos, Operator op) throws Exception{
 		Grid g = s.getGrid();
 		Position adjacentCell = Grid.nextCell(rockPos, op);
 
@@ -66,8 +67,7 @@ public class HelpR2D2 extends SearchProb {
 			 * If the adjacent cell is invalid (rock next to an edge), 
 			 * the state should be null.
 			 */
-			s = null;
-			return;
+			return null;
 		}
 
 		CellType adjType = g.getCellType(adjacentCell);
@@ -78,7 +78,7 @@ public class HelpR2D2 extends SearchProb {
 		case OBSTACLE:
 		case ROCK:
 		case ROCKONTELEPORTAL:
-		case ROCKONPAD: s = null; return;
+		case ROCKONPAD: return null;
 		/*
 		 * 2. The rock is movable.
 		 */
@@ -86,6 +86,7 @@ public class HelpR2D2 extends SearchProb {
 		case TELEPORTAL: 
 		case PAD: g.moveRock(rockPos, adjacentCell);
 		}
+		return s;
 	}
 
 	@Override
