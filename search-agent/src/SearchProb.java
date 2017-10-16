@@ -59,15 +59,12 @@ public abstract class SearchProb {
 				return new SearchRes(null, 0);
 			Node node = queue.removeFirst();
 			boolean isNotVisited = !visitedNodes.contains(node);
-			boolean isEmptyQueue = queue.isEmpty();
-			if (isNotVisited || isEmptyQueue)
+			if (isNotVisited)
 			{	
-				if(isNotVisited){
-					visitedNodes.add(node);
-					expNodesCount++;
-					if(goalTest(node.getState()))
-						return new SearchRes(node, expNodesCount);
-				}
+				visitedNodes.add(node);
+				expNodesCount++;
+				if(goalTest(node.getState()))
+					return new SearchRes(node, expNodesCount);
 				ArrayList<Node> children = expand(node);
 				search.QING(st, root, queue, children, visitedNodes);
 			}

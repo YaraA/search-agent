@@ -2,10 +2,10 @@ import java.util.EnumSet;
 import java.util.Random;
 
 public class Main {
-	final static int gridLimit = 2; //upper bound for m & n values of the grid
+	final static int gridLimit = 4; //upper bound for m & n values of the grid
 
 	public static void main (String[]args) throws Exception{
-		//		Grid grid = Grid.createGridFromFile("noSol2");
+//		Grid grid = Grid.createGridFromFile("smallGrid");
 		Grid grid = GenGrid();
 		System.out.println(grid);
 		Search(grid, Strategy.BF, false);
