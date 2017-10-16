@@ -13,7 +13,11 @@ public class Node {
 		this.operator = o;
 		this.depth = p==null? 0 : (p.getDepth() + 1); //Check it is not the root.
 	}
-
+	public boolean equals(Object o)
+	{
+		Node n = (Node) o;
+		return this.state.equals(n.state);
+	}
 	public State getState() {
 		return state;
 	}

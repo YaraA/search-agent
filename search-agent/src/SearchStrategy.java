@@ -5,12 +5,12 @@ import java.util.LinkedList;
 
 public class SearchStrategy {
 	private int depthLimit;
-	public void QING(Strategy s, Node root, LinkedList<Node> queue ,ArrayList<Node> children){
+	public void QING(Strategy s, Node root, LinkedList<Node> queue ,ArrayList<Node> children,ArrayList<Node> v){
 		switch(s){
 		case BF: BFS(queue, children); break;
 		case DF: DFS(queue, children); break;
 		case UC: UC(queue, children); break;
-		case ID: ID(root, queue, children); break;
+		case ID: ID(root, queue, children,v); break;
 		case GR1: GR(queue, children, Strategy.GR1); break;
 		case GR2: GR(queue, children, Strategy.GR2); break;
 		case GR3: GR(queue, children, Strategy.GR3); break;
@@ -40,13 +40,15 @@ public class SearchStrategy {
 		queue.addAll(children);
 		Collections.sort(queue, new CostCompare());
 	}
-	public void ID(Node root, LinkedList<Node> queue ,ArrayList<Node> children){
+	public void ID(Node root, LinkedList<Node> queue ,ArrayList<Node> children, ArrayList<Node> v){
 		/*
 		 * If queue is empty, then increment the depth limit and insert the root.
 		 */
 		if(queue.isEmpty())
 		{
 			depthLimit++;
+			System.out.println("hi "+depthLimit);
+			v.clear();
 			queue.add(root);
 		}
 		/*

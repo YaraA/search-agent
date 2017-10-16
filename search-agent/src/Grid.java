@@ -240,7 +240,17 @@ public class Grid {
 		newGrid.teleportalPosition = this.teleportalPosition.clone();
 		return newGrid;
 	}
-
+	public boolean equals(Grid g)
+	{
+		if (!this.getAgentLocation().equals(g.getAgentLocation()))
+			return false;
+		ArrayList<Position> myRockPosition = this.getRocksPositions();
+		ArrayList<Position> gRockPosition = g.getRocksPositions();
+		for (int i=0;i<rocksCount;i++)
+			if (!myRockPosition.get(i).equals(gRockPosition.get(i)))
+				return false;
+		return true;
+	}
 	public ArrayList<Position> getPositionsofTypes(EnumSet<CellType> types){
 		/*
 		 * Returns a list of the positions of cells of the given type in the grid.
