@@ -6,17 +6,16 @@ import java.util.LinkedList;
 public abstract class SearchProb {
 	EnumSet<Operator> operators;
 	State initialState;
-	
+
 	public SearchProb(EnumSet<Operator> operators, State initialState) {
 		this.operators = operators;
 		this.initialState = initialState;
 	}
-	
+
 	public abstract State transition(State state, Operator operator) throws Exception;
 	public abstract boolean goalTest(State state);
 	public abstract int pathCost(Node node);
-	public abstract EnumSet<Operator> allowedOperators(Node node);
-	
+
 	public ArrayList<Node> expand(Node node) throws Exception{
 		//returns an array of all the possible children of Node node
 		ArrayList<Node> childrenNodes = new ArrayList<Node>();
@@ -28,7 +27,7 @@ public abstract class SearchProb {
 				childNode.setPathCost(this.pathCost(childNode));
 				childrenNodes.add(childNode);
 			}
-			
+
 		}
 		return childrenNodes;
 	}
@@ -66,7 +65,6 @@ public abstract class SearchProb {
 		}
 	}
 
-	
 	public Object getOperators() {
 		return operators;
 	}
@@ -82,6 +80,6 @@ public abstract class SearchProb {
 	public void setInitialState(State initialState) {
 		this.initialState = initialState;
 	}
-	
+
 
 }

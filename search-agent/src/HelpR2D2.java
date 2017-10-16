@@ -124,12 +124,4 @@ public class HelpR2D2 extends SearchProb {
 		 */
 		return stepCost + node.getParent().getPathCost();
 	}
-
-	@Override
-	public EnumSet<Operator> allowedOperators(Node node) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
 }
