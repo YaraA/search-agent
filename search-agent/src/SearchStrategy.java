@@ -48,7 +48,6 @@ public class SearchStrategy {
 		{
 			depthLimit++;
 			queue.add(root);
-			return;
 		}
 		/*
 		 * If the children are within the depth limit, add them to the beginning of the queue.
