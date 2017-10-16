@@ -5,7 +5,7 @@ public class Main {
 	final static int gridLimit = 6; //upper bound for m & n values of the grid
 	
 	public static void main (String[]args) throws Exception{
-		Grid grid = Grid.createGridFromFile("Sol1");
+		Grid grid = Grid.createGridFromFile("Trivial");
 		System.out.println(grid);
 		Search(grid, Strategy.AS1, false);
 	}

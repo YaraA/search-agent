@@ -69,7 +69,7 @@ public class HelpR2D2 extends SearchProb {
 			s = null;
 			return;
 		}
-		
+
 		CellType adjType = g.getCellType(adjacentCell);
 		switch(adjType){
 		/*
@@ -107,8 +107,22 @@ public class HelpR2D2 extends SearchProb {
 		 */
 		if(node.getParent() == null)
 			return 0;
-		
-		return 1 + node.getParent().getPathCost();
+		int stepCost = 1;
+		/*
+		 * Give different values for each operator (only for testing Uniform-Cost)
+		 */
+		/*		switch (node.getOperator()) {
+				case UP: stepCost = 10;
+					break;
+				case DOWN: stepCost = 2;
+					break;
+				case LEFT: stepCost = 3;
+					break;
+				case RIGHT: stepCost = 4;
+					break;
+				}
+		 */
+		return stepCost + node.getParent().getPathCost();
 	}
 
 	@Override
