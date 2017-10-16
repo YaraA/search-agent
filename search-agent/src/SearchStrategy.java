@@ -58,6 +58,7 @@ public class SearchStrategy {
 			if(children.get(0).getDepth() <= depthLimit)	
 				queue.addAll(0, children);
 	}
+//	public SearchRes IDV2()
 	public void GR(LinkedList<Node> queue ,ArrayList<Node> children, Strategy s){
 		/*
 		 * Sets estimated cost by the city-block heuristic for each child node,

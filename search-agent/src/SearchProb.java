@@ -60,7 +60,7 @@ public abstract class SearchProb {
 			Node node = queue.removeFirst();
 			boolean isNotVisited = !visitedNodes.contains(node);
 			boolean isEmptyQueue = queue.isEmpty();
-			if ( isNotVisited || isEmptyQueue)
+			if (isNotVisited || isEmptyQueue)
 			{	
 				if(isNotVisited){
 					visitedNodes.add(node);
