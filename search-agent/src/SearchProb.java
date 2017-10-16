@@ -24,9 +24,8 @@ public abstract class SearchProb {
 			State newState = this.transition(node.getState(), o);
 			if(newState != null)
 			{
-				int cost = this.pathCost(node);
-				int childDepth = node.getDepth() +1;
-				Node childNode = new Node(newState, node, o, childDepth, cost);
+				Node childNode = new Node(newState, node, o);
+				childNode.setPathCost(this.pathCost(childNode));
 				childrenNodes.add(childNode);
 			}
 			
@@ -42,7 +41,7 @@ public abstract class SearchProb {
 		/*
 		 * Create a node of the initial state.
 		 */
-		Node root = new Node(initialState, null, null, 0, 0);
+		Node root = new Node(initialState, null, null);
 		/*
 		 * Initialize an empty queue and insert the root node.
 		 */

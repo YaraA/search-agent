@@ -7,12 +7,11 @@ public class Node {
 	private int pathCost;
 	private int estimatedCostToGoal;
 
-	public Node(State s, Node p, Operator o, int d, int c) {
+	public Node(State s, Node p, Operator o) {
 		this.state = s;
 		this.parent = p;
 		this.operator = o;
-		this.depth = d;
-		this.pathCost = c;
+		this.depth = p==null? 0 : (p.getDepth() + 1); //Check it is not the root.
 	}
 
 	public State getState() {
