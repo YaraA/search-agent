@@ -1,12 +1,13 @@
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.Random;
-
+import java.util.Scanner;
 
 public class Grid {
 	private Cell[][] grid;
-	private int m;
-	private int n;
+	private int m; //height
+	private int n;	//width
 	private int padsCount;
 	private int rocksCount;
 	private int obstaclesCount;
@@ -52,18 +53,22 @@ public class Grid {
 	public Position getTeleportalPosition() {
 		return teleportalPosition;
 	}
-
+	public Grid(int m, int n){
+		/*
+		 * Initialize the grid with only the known dimensions.
+		 */
+		this.m = m;
+		this.n = n;
+		this.grid = new Cell[m][n];
+	}
 	public Grid(int m, int n, int pads, int rocks, int obstacles){
 		/*
 		 * Initialize instance variables.
 		 */
-		this.m = m;
-		this.n = n;
+		this(m,n);
 		this.padsCount = pads;
 		this.rocksCount = rocks;
 		this.obstaclesCount = obstacles;
-		this.grid = new Cell[m][n];
-
 		/*
 		 * Initialize the grid with BLANK cells.
 		 */
@@ -72,7 +77,8 @@ public class Grid {
 				grid[i][j] = new Cell(CellType.BLANK);
 			}
 		}
-
+	}
+	public void fillGridRandomly(){
 		/*
 		 * Assign agent location to a random blank cell.
 		 */
@@ -88,9 +94,9 @@ public class Grid {
 		/*
 		 * Create and assign pressure pads, rocks, and obstacles cells.
 		 */
-		createCells(pads, CellType.PAD);
-		createCells(rocks, CellType.ROCK); 
-		createCells(obstacles, CellType.OBSTACLE);
+		createCells(padsCount, CellType.PAD);
+		createCells(rocksCount, CellType.ROCK); 
+		createCells(obstaclesCount, CellType.OBSTACLE);
 	}
 
 	public void createCells(int count, CellType type){
@@ -186,13 +192,27 @@ public class Grid {
 		int x = curr.getX(); int y = curr.getY();
 
 		switch(op){
-		case UP: y++; break;
-		case DOWN: y--; break;
-		case RIGHT: x++; break;
-		case LEFT: x--; break;
+		case UP: x--; break;
+		case DOWN: x++; break;
+		case RIGHT: y++; break;
+		case LEFT: y--; break;
 		}
 
 		return new Position(x,y);
+	}
+	public void addCell(int i, int j, CellType t){
+		/*
+		 * Create a cell in position (i,j) of type t,
+		 * and increment count of its type (if needed).
+		 */
+		this.grid[i][j] = new Cell(t);
+		switch(t){
+		case ROCK: rocksCount++; break;
+		case PAD: padsCount++; break;
+		case OBSTACLE: obstaclesCount++; break;
+		default:
+			break;
+		}
 	}
 	public Grid clone(){
 		/*
@@ -213,6 +233,11 @@ public class Grid {
 			}
 		}
 		newGrid.grid = gridArray;
+		/*
+		 * 3. Clone teleportal and agent positions.
+		 */
+		newGrid.agentLocation = this.agentLocation.clone();
+		newGrid.teleportalPosition = this.teleportalPosition.clone();
 		return newGrid;
 	}
 
@@ -266,5 +291,56 @@ public class Grid {
 			result += "  " +seperator + "\n";
 		}
 		return result;
+	}
+	public static Grid createGridFromFile(String fileName) throws Exception{
+		/*
+		 * Expects a grid in file like the following format:
+		 	5 3
+			O B B
+			P B B
+			B O R
+			A B B
+			B B T
+		 */
+		/* 
+		 * Set up the needed tools to parse the text file.
+		 */
+		FileReader in = new FileReader("grid-tests/" + fileName);
+		Scanner sc = new Scanner(in);
+		/*
+		 * Get grid dimensions and create a new grid instance.
+		 */
+		int m = sc.nextInt(); int n = sc.nextInt();
+		Grid g = new Grid(m, n);
+
+		/*
+		 * Parse the file and set cell types accordingly.
+		 */
+		try{
+			for (int i = 0; i < m; i++) {
+				for (int j = 0; j < n; j++) {
+					String s = sc.next();						
+					CellType type = CellType.getType(s);
+					/*
+					 * Handle special cases of telep. and agent.
+					 */
+					if(s.equals("A")){
+						g.agentLocation = new Position(i, j);
+						type = CellType.BLANK;
+					}
+					if(type == CellType.TELEPORTAL)
+						g.teleportalPosition = new Position(i, j);
+					/*
+					 * Add the cell to the grid in proper position.
+					 */
+					g.addCell(i, j, type);
+				}
+			}
+			sc.close();
+		}
+		catch (Exception e){
+			throw new Exception("Grid format in file is not correct.");
+		}
+		return g;
 	}
 }

@@ -8,8 +8,8 @@ public abstract class SearchProb {
 	State initialState;
 	
 	public SearchProb(EnumSet<Operator> operators, State initialState) {
-		this.operators= operators;
-		this.initialState= initialState;
+		this.operators = operators;
+		this.initialState = initialState;
 	}
 	
 	public abstract State transition(State state, Operator operator) throws Exception;
