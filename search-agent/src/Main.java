@@ -5,9 +5,9 @@ public class Main {
 	final static int gridLimit = 6; //upper bound for m & n values of the grid
 	
 	public static void main (String[]args) throws Exception{
-		Grid grid= Grid.createGridFromFile("noSol1");
+		Grid grid = Grid.createGridFromFile("Sol1");
 		System.out.println(grid);
-		Search(grid, Strategy.BF, false);
+		Search(grid, Strategy.AS1, false);
 	}
 
 	/* genGrid() generates random numbers of grid dimensions and objects,
