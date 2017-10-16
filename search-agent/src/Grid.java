@@ -192,10 +192,10 @@ public class Grid {
 		int x = curr.getX(); int y = curr.getY();
 
 		switch(op){
-		case UP: y++; break;
-		case DOWN: y--; break;
-		case RIGHT: x++; break;
-		case LEFT: x--; break;
+		case UP: x--; break;
+		case DOWN: x++; break;
+		case RIGHT: y++; break;
+		case LEFT: y--; break;
 		}
 
 		return new Position(x,y);
