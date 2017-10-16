@@ -3,11 +3,11 @@ import java.util.Random;
 
 public class Main {
 	final static int gridLimit = 6; //upper bound for m & n values of the grid
-
+	
 	public static void main (String[]args) throws Exception{
-		Grid grid = Grid.createGridFromFile("Trivial");
+		Grid grid = Grid.createGridFromFile("Sol1");
 		System.out.println(grid);
-		Search(grid, Strategy.AS3, false);
+		Search(grid, Strategy.BF, true);
 	}
 
 	/* genGrid() generates random numbers of grid dimensions and objects,
@@ -68,6 +68,6 @@ public class Main {
 		SearchRes result = problem.generalSearch(st);
 		System.out.println(result);
 		if(visualize)
-			result.visualize();
+			result.visualize(problem);
 	}
 }

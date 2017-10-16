@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class SearchRes {
 	ArrayList<Operator> moves; //the sequence of moves to reach the goal (if possible)
@@ -58,7 +59,23 @@ public class SearchRes {
 		return result;
 	}
 	
-	public void visualize(){
-		
+	public void visualize(SearchProb p) throws Exception{
+		TimeUnit.SECONDS.sleep(5);
+		System.out.println("Visualizing each step from initial grid:");
+		State s = p.getInitialState();
+		/*
+		 * Print initial grid.
+		 */
+		System.out.println(s);
+		/*
+		 * Use transition method to get the next state for each move in the result.
+		 */
+		for(Operator move : moves){
+			s = p.transition(s, move);
+			System.out.println(move);
+			System.out.println(s);
+			TimeUnit.SECONDS.sleep(2);
+		}
+		System.out.println("DONE!");
 	}
 }

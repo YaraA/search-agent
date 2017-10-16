@@ -19,4 +19,10 @@ public class HelpR2D2State extends State{
 	public HelpR2D2State clone(){
 		return new HelpR2D2State(grid.clone());
 	}
+
+
+	@Override
+	public String toString() {
+		return grid.toString();
+	}
 }
