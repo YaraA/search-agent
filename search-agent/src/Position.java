@@ -35,6 +35,9 @@ public class Position {
 	public boolean equals(Position p){
 		return (this.x==p.x) && (this.y==p.y);
 	}
+	public Position clone(){
+		return new Position(x, y);
+	}
 	private int cityBlockDistanceTo(Position p){
 		/*
 		 * Returns the difference in x + difference in y.

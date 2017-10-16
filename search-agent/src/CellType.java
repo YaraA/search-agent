@@ -9,11 +9,33 @@ public enum CellType {
 	ROCKONPAD,
 	TELEPORTAL,
 	ROCKONTELEPORTAL;
-	
+
 	public static EnumSet<CellType> getRockTypes(){
-		return EnumSet.of(CellType.ROCK, CellType.ROCKONPAD, CellType.ROCKONTELEPORTAL);
+		return EnumSet.of(ROCK, ROCKONPAD, ROCKONTELEPORTAL);
 	}
 	public static EnumSet<CellType> getPadTypes(){
-		return EnumSet.of(CellType.PAD, CellType.ROCKONPAD);
+		return EnumSet.of(PAD, ROCKONPAD);
+	}
+	public static CellType getType(String s){
+		/*
+		 * Returns the type of the given cell notation.
+		 */
+		for(CellType t : CellType.values()){
+			if(t.toString().equals(s))
+				return t;
+		}
+		return null;
+	}
+	public String toString(){
+		switch(this){
+		case BLANK: return "B";
+		case OBSTACLE: return "O";
+		case PAD:	return "P";
+		case ROCK:	return "R";
+		case ROCKONPAD:	return "\u1E56"; //P with a dot
+		case ROCKONTELEPORTAL: return "\u1E6A"; //T with a dot
+		case TELEPORTAL:	return "T";
+		}
+		return null;	
 	}
 }
