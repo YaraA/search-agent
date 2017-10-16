@@ -56,4 +56,7 @@ public class Position {
 		default: return 0;
 		}
 	}
+	public String toString(){
+		return "("+ x + "," + y + ")";
+	}
 }
