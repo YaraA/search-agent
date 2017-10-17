@@ -7,7 +7,7 @@ public class SearchRes {
 	int expNodesCount; //the number of nodes chosen for expansion during the search
 
 	public SearchRes(Node goal, int expNodesCount) {
-		moves = new ArrayList<Operator>();
+		moves = goal==null?null:new ArrayList<Operator>();
 		cost= goal==null?0:goal.getPathCost();
 		
 		this.calculateMoves(goal);
@@ -49,7 +49,7 @@ public class SearchRes {
 	}
 	
 	public String toString() {
-		if(moves.isEmpty())
+		if(this.isNoSolution())
 			return "No solution found!";
 		String result="Moves\n";
 		for(Operator op: moves){
@@ -58,8 +58,12 @@ public class SearchRes {
 		result+= "\nCost\n" + this.cost + " \nNumber of Expanded Nodes\n" + this.expNodesCount;
 		return result;
 	}
-	
+	public boolean isNoSolution(){
+		return moves==null;
+	}
 	public void visualize(SearchProb p) throws Exception{
+		if(this.isNoSolution())
+			return;
 		TimeUnit.SECONDS.sleep(5);
 		System.out.println("Visualizing each step from initial grid:");
 		State s = p.getInitialState();

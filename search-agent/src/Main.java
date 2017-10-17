@@ -8,7 +8,7 @@ public class Main {
 //		Grid grid = Grid.createGridFromFile("smallGrid");
 		Grid grid = GenGrid();
 		System.out.println(grid);
-		Search(grid, Strategy.BF, false);
+		Search(grid, Strategy.DF, true);
 	}
 
 	/* genGrid() generates random numbers of grid dimensions and objects,
