@@ -5,12 +5,12 @@ import java.util.LinkedList;
 
 public class SearchStrategy {
 	private int depthLimit;
-	public void QING(Strategy s, Node root, LinkedList<Node> queue ,ArrayList<Node> children,ArrayList<Node> v){
+	public void QING(Strategy s, LinkedList<Node> queue ,ArrayList<Node> children, DepthLimit depthLimit){
 		switch(s){
 		case BF: BFS(queue, children); break;
 		case DF: DFS(queue, children); break;
 		case UC: UC(queue, children); break;
-		case ID: ID(root, queue, children,v); break;
+		case ID: ID(queue, children, depthLimit); break;
 		case GR1: GR(queue, children, Strategy.GR1); break;
 		case GR2: GR(queue, children, Strategy.GR2); break;
 		case GR3: GR(queue, children, Strategy.GR3); break;
@@ -40,25 +40,19 @@ public class SearchStrategy {
 		queue.addAll(children);
 		Collections.sort(queue, new CostCompare());
 	}
-	public void ID(Node root, LinkedList<Node> queue ,ArrayList<Node> children, ArrayList<Node> visitedNodes){
-		/*
-		 * If queue is empty, then increment the depth limit and insert the root.
-		 */
-		if(queue.isEmpty())
-		{
-			depthLimit++;
-			queue.add(root);
-			visitedNodes.clear();
-		}
+	public void ID(LinkedList<Node> queue ,ArrayList<Node> children, DepthLimit depthLimit){
 		/*
 		 * If the children are within the depth limit, add them to the beginning of the queue.
 		 * OTHERWISE: neglect them.
 		 */
 		if(!children.isEmpty())
-			if(children.get(0).getDepth() <= depthLimit)	
+			if(children.get(0).getDepth() <= depthLimit.getDepthLimit())	
 				queue.addAll(0, children);
+			else
+			{
+				depthLimit.setIncDepth(true);
+			}
 	}
-//	public SearchRes IDV2()
 	public void GR(LinkedList<Node> queue ,ArrayList<Node> children, Strategy s){
 		/*
 		 * Sets estimated cost by the city-block heuristic for each child node,
