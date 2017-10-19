@@ -81,7 +81,13 @@ public abstract class SearchProb {
 						return new SearchRes(null, 0);
 				}
 			}
+			/*
+			 * Dequeue the node from the queue. 
+			 */
 			Node node = queue.removeFirst();
+			/*
+			 * Check if the state of the node was visited before.
+			 */
 			boolean isNotVisited = !visitedNodes.contains(node);
 			if (isNotVisited)
 			{	

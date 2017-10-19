@@ -11,7 +11,7 @@ public class Grid {
 	private int padsCount;
 	private int rocksCount;
 	private int obstaclesCount;
-	private Position agentLocation;
+	private Position agentPosition;
 	private Position teleportalPosition;
 
 	public Cell[][] getGrid() {
@@ -42,12 +42,12 @@ public class Grid {
 	public int getObstaclesCount() {
 		return obstaclesCount;
 	}
-	public Position getAgentLocation() {
-		return agentLocation;
+	public Position getAgentPosition() {
+		return agentPosition;
 	}
 
-	public void setAgentLocation(Position agentLocation) {
-		this.agentLocation = agentLocation;
+	public void setAgentPosition(Position agentLocation) {
+		this.agentPosition = agentLocation;
 	}
 
 	public Position getTeleportalPosition() {
@@ -56,6 +56,7 @@ public class Grid {
 	public Grid(int m, int n){
 		/*
 		 * Initialize the grid with only the known dimensions.
+		 * Used with the manually generated grids 
 		 */
 		this.m = m;
 		this.n = n;
@@ -72,8 +73,8 @@ public class Grid {
 		/*
 		 * Initialize the grid with BLANK cells.
 		 */
-		for(int i=0; i<m; i++){
-			for(int j=0; j<n; j++){
+		for(int i = 0; i < m; i++){
+			for(int j = 0; j < n; j++){
 				grid[i][j] = new Cell(CellType.BLANK);
 			}
 		}
@@ -85,7 +86,7 @@ public class Grid {
 		Random random = new Random();
 		int x = random.nextInt(m);
 		int y = random.nextInt(n);
-		agentLocation = new Position(x, y);
+		agentPosition = new Position(x, y);
 
 		/*
 		 * Create and assign one teleportal cell.
@@ -112,7 +113,7 @@ public class Grid {
 				j = random.nextInt(n);
 			}
 			while(!(grid[i][j].getType() == CellType.BLANK) 
-					|| agentLocation.equals(i, j));
+					|| agentPosition.equals(i, j));
 			/*
 			 * Change the type of the chosen blank cell to the needed type.
 			 */
@@ -132,7 +133,7 @@ public class Grid {
 	public boolean isActivated(){
 		/*
 		 * If all cells in the grid are NOT of type ROCK, then all rocks are on
-		 * pressure pads (cells of type ROCKONPAD).
+		 * pressure pads (instead they are cells of type ROCKONPAD).
 		 */
 		for (int i = 0; i < m; i++) {
 			for (int j = 0; j < n; j++) {
@@ -152,7 +153,7 @@ public class Grid {
 		/*
 		 * 1. Update agent location after moving into the rock cell.
 		 */
-		this.agentLocation.set(rockCell);
+		this.agentPosition.set(rockCell);
 		/*
 		 * 2. Update rockCell new type.
 		 */
@@ -183,14 +184,17 @@ public class Grid {
 		/*
 		 * Check that the position (of a given cell) is in the valid range of the grid.
 		 */
-		if(p.getX()>=0 && p.getX() < this.m)
-			if(p.getY()>=0 && p.getY() < this.n)
+		if(p.getX() >= 0 && p.getX() < this.m)
+			if(p.getY() >=  0 && p.getY() < this.n)
 				return true;
 		return false;
 	}
 	public static Position nextCell(Position curr, Operator op){
 		int x = curr.getX(); int y = curr.getY();
-
+		/*
+		 * x represents the row number.
+		 * y represents the column number.
+		 */
 		switch(op){
 		case UP: x--; break;
 		case DOWN: x++; break;
@@ -236,17 +240,21 @@ public class Grid {
 		/*
 		 * 3. Clone teleportal and agent positions.
 		 */
-		newGrid.agentLocation = this.agentLocation.clone();
+		newGrid.agentPosition = this.agentPosition.clone();
 		newGrid.teleportalPosition = this.teleportalPosition.clone();
 		return newGrid;
 	}
 	public boolean equals(Grid g)
 	{
-		if (!this.getAgentLocation().equals(g.getAgentLocation()))
+		/*
+		 * Deep Comparison
+		 * Compares the rock positions and the agent position.
+		 */
+		if (!this.getAgentPosition().equals(g.getAgentPosition()))
 			return false;
 		ArrayList<Position> myRockPosition = this.getRocksPositions();
 		ArrayList<Position> gRockPosition = g.getRocksPositions();
-		for (int i=0;i<rocksCount;i++)
+		for (int i = 0; i < rocksCount; i++)
 			if (!myRockPosition.get(i).equals(gRockPosition.get(i)))
 				return false;
 		return true;
@@ -256,8 +264,8 @@ public class Grid {
 		 * Returns a list of the positions of cells of the given type in the grid.
 		 */
 		ArrayList<Position> positions = new ArrayList<Position>(this.rocksCount);
-		for(int i=0; i<getM(); i++){
-			for(int j=0; j<getN(); j++){
+		for(int i = 0; i < getM(); i++){
+			for(int j = 0; j < getN(); j++){
 				if(types.contains(this.grid[i][j].getType())){
 					positions.add(new Position(i,j));
 				}
@@ -292,7 +300,7 @@ public class Grid {
 		for(int i = 0; i < m; i++){
 			for(int j = 0; j < n; j++){
 				String cell= grid[i][j].toString();
-				if(agentLocation.equals(i, j)){
+				if(agentPosition.equals(i, j)){
 					cell = "A";
 				}
 				result += "  |  " + cell;
@@ -335,7 +343,7 @@ public class Grid {
 					 * Handle special cases of telep. and agent.
 					 */
 					if(s.equals("A")){
-						g.agentLocation = new Position(i, j);
+						g.agentPosition = new Position(i, j);
 						type = CellType.BLANK;
 					}
 					if(type == CellType.TELEPORTAL)

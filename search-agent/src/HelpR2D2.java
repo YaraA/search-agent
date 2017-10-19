@@ -15,7 +15,7 @@ public class HelpR2D2 extends SearchProb {
 		 */
 		HelpR2D2State s = (HelpR2D2State) state;
 		Grid g = s.getGrid();
-		Position agent = s.getGrid().getAgentLocation();
+		Position agent = s.getGrid().getAgentPosition();
 
 		HelpR2D2State newState = s.clone();
 		Grid newGrid = s.getGrid();
@@ -50,7 +50,7 @@ public class HelpR2D2 extends SearchProb {
 		/*
 		 * Updates the agent location in case the new cell is BLANK or PAD.
 		 */
-		s.getGrid().setAgentLocation(newPos);
+		s.getGrid().setAgentPosition(newPos);
 		return s;
 	}
 
@@ -96,7 +96,7 @@ public class HelpR2D2 extends SearchProb {
 		 */
 		Grid g = ((HelpR2D2State) state).getGrid();
 		if(g.isActivated() && 
-				g.getAgentLocation().equals(g.getTeleportalPosition()))
+				g.getAgentPosition().equals(g.getTeleportalPosition()))
 			return true;
 		return false;
 	}
