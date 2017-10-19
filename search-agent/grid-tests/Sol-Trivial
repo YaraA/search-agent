@@ -6,5 +6,5 @@ B B B
 A B B
 
 To test UC versus BFS:
-US: R R U U U U
+UC: R R U U U U
 BFS: U U U U R R

@@ -51,12 +51,36 @@ public abstract class SearchProb {
 		 * Counter to keep track of expanded nodes.
 		 */
 		int expNodesCount = 0;
+		/*
+		 * Counter for depthLimit of ID. 
+		 */
+		DepthLimit depthLimit = new DepthLimit();
 		while(true){
-			if(queue.isEmpty()) 
+			if(queue.isEmpty() ) {
 				/*
 				 * No solution found.
 				 */
-				return new SearchRes(null, 0);
+				if(st != Strategy.ID)
+					return new SearchRes(null, 0);
+				else{
+					/*
+					 * If queue is empty, then increment the depth limit, insert the root
+					 * and flush visited nodes.
+					 */
+					if(depthLimit.isIncDepth())
+					{	
+						depthLimit.setIncDepth(false);
+						depthLimit.incDepthLimit();;
+						queue.add(root);
+						visitedNodes.clear(); 
+					}
+					else
+						/* 
+						 * All leaves are visited and ID should terminate.
+						 */
+						return new SearchRes(null, 0);
+				}
+			}
 			Node node = queue.removeFirst();
 			boolean isNotVisited = !visitedNodes.contains(node);
 			if (isNotVisited)
@@ -66,7 +90,7 @@ public abstract class SearchProb {
 				if(goalTest(node.getState()))
 					return new SearchRes(node, expNodesCount);
 				ArrayList<Node> children = expand(node);
-				search.QING(st, root, queue, children, visitedNodes);
+				search.QING(st, queue, children, depthLimit);
 			}
 		}
 	}
