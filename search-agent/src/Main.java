@@ -2,13 +2,22 @@ import java.util.EnumSet;
 import java.util.Random;
 
 public class Main {
-	final static int gridLimit = 5; //upper bound for m & n values of the grid
+	final static int gridLimit = 5; //upper bound for dimensions of the grid.
 
 	public static void main (String[]args) throws Exception{
-//		Grid grid = Grid.createGridFromFile("Sol-Trivial");
+		/*
+		 * Uncomment the following line to input the file name of a manual grid.
+		 */
+		//Grid grid = Grid.createGridFromFile("Sol2-DFS");
+		/*
+		 * Generate a random grid.
+		 */
 		Grid grid = GenGrid();
 		System.out.println(grid);
-		Search(grid, Strategy.ID, false);
+		/*
+		 * Execute search with a chosen strategy.
+		 */
+		Search(grid, Strategy.GR3, true);
 	}
 
 	/* genGrid() generates random numbers of grid dimensions and objects,
@@ -16,7 +25,7 @@ public class Main {
 	 */
 	public static Grid GenGrid(){
 		/*
-		 To generate random number between min(inclusive) and max(inclusive), use: 
+		 To generate a random number between min (inclusive) and max (exclusive), use: 
 		 random.nextInt((max - min) + 1) + min;
 		 */
 
@@ -70,8 +79,14 @@ public class Main {
 		 * Create a new instance of the problem.
 		 */
 		HelpR2D2 problem =  new HelpR2D2(EnumSet.allOf(Operator.class), initialState);
+		/*
+		 * Compute the search solution given the strategy and print it.
+		 */
 		SearchRes result = problem.generalSearch(st);
 		System.out.println(result);
+		/*
+		 * If the visualize option is on, print every step of the solution (if any).
+		 */
 		if(visualize)
 			result.visualize(problem);
 	}

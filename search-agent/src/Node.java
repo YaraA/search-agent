@@ -1,4 +1,6 @@
 
+
+
 public class Node {
 	private State state;
 	private Node parent;
@@ -15,6 +17,9 @@ public class Node {
 	}
 	public boolean equals(Object o)
 	{
+		/*
+		 * Deep Comparison
+		 */
 		Node n = (Node) o;
 		return this.state.equals(n.state);
 	}

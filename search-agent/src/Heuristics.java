@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 
-
 public abstract class Heuristics {
 
 	@SuppressWarnings("incomplete-switch")
@@ -74,7 +73,7 @@ public abstract class Heuristics {
 		 * is the CITY-BLOCK distance from the agent to the teleportal.
 		 */
 		Grid grid = ((HelpR2D2State) node.getState()).getGrid();
-		Position agentPosition = grid.getAgentLocation();
+		Position agentPosition = grid.getAgentPosition();
 		Position teleportalPosition = grid.getTeleportalPosition();
 
 		return agentPosition.distanceTo(teleportalPosition, DistanceType.CITYBLOCK);

@@ -18,7 +18,7 @@ public enum CellType {
 	}
 	public static CellType getType(String s){
 		/*
-		 * Returns the type of the given cell notation.
+		 * Returns the type (as enum) of the given cell notation.
 		 */
 		for(CellType t : CellType.values()){
 			if(t.toString().equals(s))
@@ -30,11 +30,11 @@ public enum CellType {
 		switch(this){
 		case BLANK: return "B";
 		case OBSTACLE: return "O";
-		case PAD:	return "P";
-		case ROCK:	return "R";
-		case ROCKONPAD:	return "\u1E56"; //P with a dot
-		case ROCKONTELEPORTAL: return "\u1E6A"; //T with a dot
-		case TELEPORTAL:	return "T";
+		case PAD: return "P";
+		case ROCK: return "R";
+		case ROCKONPAD:	return "\u1E56"; //P with a dot above
+		case ROCKONTELEPORTAL: return "\u1E6A"; //T with a dot above
+		case TELEPORTAL: return "T";
 		}
 		return null;	
 	}

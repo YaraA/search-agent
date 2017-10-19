@@ -1,5 +1,7 @@
-
 public class DepthLimit {
+	/*
+	 * Stores needed info about the depth and the progress of the ID search strategy.
+	 */
 	private int depthLimit;
 	private boolean incDepth;
 

@@ -20,7 +20,7 @@ public class Cell {
 	}
 	public String toString(){
 		/*
-		 * Returns the first letter of the enum name.
+		 * Returns the cell type.
 		 */
 		return type.toString();
 	}
