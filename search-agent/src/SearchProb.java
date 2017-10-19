@@ -2,14 +2,14 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.LinkedList;
 
-
 public abstract class SearchProb {
 	EnumSet<Operator> operators;
 	State initialState;
-
+	ArrayList<Node> visitedNodes;
 	public SearchProb(EnumSet<Operator> operators, State initialState) {
 		this.operators = operators;
 		this.initialState = initialState;
+		visitedNodes = new ArrayList<Node>();
 	}
 
 	public abstract State transition(State state, Operator operator) throws Exception;
@@ -26,6 +26,7 @@ public abstract class SearchProb {
 				Node childNode = new Node(newState, node, o);
 				childNode.setPathCost(this.pathCost(childNode));
 				childrenNodes.add(childNode);
+
 			}
 
 		}
@@ -57,11 +58,16 @@ public abstract class SearchProb {
 				 */
 				return new SearchRes(null, 0);
 			Node node = queue.removeFirst();
-			expNodesCount++;
-			if(goalTest(node.getState()))
-				return new SearchRes(node, expNodesCount);
-			ArrayList<Node> children = expand(node);
-			search.QING(st, root, queue, children);
+			boolean isNotVisited = !visitedNodes.contains(node);
+			if (isNotVisited)
+			{	
+				visitedNodes.add(node);
+				expNodesCount++;
+				if(goalTest(node.getState()))
+					return new SearchRes(node, expNodesCount);
+				ArrayList<Node> children = expand(node);
+				search.QING(st, root, queue, children, visitedNodes);
+			}
 		}
 	}
 
